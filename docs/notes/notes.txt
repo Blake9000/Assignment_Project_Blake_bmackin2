@@ -11,4 +11,7 @@ The initial branching strategy is to have a unique branch per feature before mer
 
 Wireframes:
 -Login page: Since there is information about internal services, a login page is needed.
--Main Page: This page will show the status of your services and allow you to add more. 
+-Main Page: This page will show the status of your services and allow you to add more.
+
+Initialized the django project.
+I called the initial app "dashboard_view" for the main screen. I also plan on adding "login" later.
