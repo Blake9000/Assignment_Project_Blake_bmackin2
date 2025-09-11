@@ -5,3 +5,7 @@ Features:
 Dashboard - Will allow me to view the status of all my servers at a glance and have the ability to add additional servers.
 
 Log Aggregation - A more detailed view as the aggregator will collect logs from the servers and present them to you. There will be alerts for serious errors in the logs and it will allow for advanced log filtering and views.
+
+Wireframes:
+-Login page: Since there is information about internal services, a login page is needed.
+-Main Page: This page will show the status of your services and allow you to add more. 
