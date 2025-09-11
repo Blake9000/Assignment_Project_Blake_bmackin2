@@ -9,6 +9,9 @@ Log Aggregation - A more detailed view as the aggregator will collect logs from 
 Branching Strategy:
 The initial branching strategy is to have a unique branch per feature before merging to main.
 
+Branching Usage Reflections:
+I will call the first branch "dashboard_view" as the initial feature.
+
 Wireframes:
 -Login page: Since there is information about internal services, a login page is needed.
 -Main Page: This page will show the status of your services and allow you to add more.
