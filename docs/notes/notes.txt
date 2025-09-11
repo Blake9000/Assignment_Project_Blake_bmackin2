@@ -16,7 +16,9 @@ Wireframes:
 -Login page: Since there is information about internal services, a login page is needed.
 -Main Page: This page will show the status of your services and allow you to add more.
 
+Django Setup:
 Initialized the django project.
 I called the initial app "dashboard_view" for the main screen. I also plan on adding "login" later. The project is called service_dashboard because that is the overall goal of the project.
 
+Environment:
 I am using a virtual environment called "django3". This virtual environment will hold django and any other libraries I find I need. If the 2 project libraries diverge, I will create seperate environments for both of them.
