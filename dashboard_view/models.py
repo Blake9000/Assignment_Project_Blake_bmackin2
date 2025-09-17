@@ -12,7 +12,8 @@ class User(models.Model):
         return self.username
 
 class LoginAudit(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
     username_attempted = models.CharField(max_length=128)
     ip_address = models.GenericIPAddressField()
     user_agent = models.TextField(blank=True)
