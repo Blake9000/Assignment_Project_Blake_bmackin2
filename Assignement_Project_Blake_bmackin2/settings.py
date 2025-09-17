@@ -38,7 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'logging_app',
-    'service_dashboard',
+    'dashboard_view',
     'monitoring'
 ]
 
