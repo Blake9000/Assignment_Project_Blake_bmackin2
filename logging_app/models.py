@@ -1,8 +1,10 @@
 from django.db import models
+from monitoring.models import Service
+
 
 # Create your models here.
 class LogSource(models.Model):
-    service_id = models.IntegerField()
+    service_id = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='logs')
     source_type = models.CharField(max_length=16)
     path = models.TextField() # Where the log comes from
     parser = models.CharField(max_length=128, blank=True) # For future processing, what format is the log in?
