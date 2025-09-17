@@ -39,3 +39,5 @@ ls2 = LogSource.objects.create(service_id=svc2, source_type="syslog", path="/var
 LogEvent.objects.create(source=ls1, timestamp="2025-09-17T10:10:00Z", level="INFO", message="Nginx started")
 LogEvent.objects.create(source=ls1, timestamp="2025-09-17T10:15:00Z", level="ERROR", message="404 Not Found: /index.html")
 LogEvent.objects.create(source=ls2, timestamp="2025-09-17T10:20:00Z", level="CRITICAL", message="Database connection lost")
+
+
