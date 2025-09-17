@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class User(models.Model):
-    username = models.CharField(max_length=20)
+    username = models.CharField(max_length=20, unique=True)
     password = models.TextField(null=True, blank=True, default=None, editable=False)
     email = models.EmailField()
     role = models.CharField(max_length=5) # Owner, admin, user
