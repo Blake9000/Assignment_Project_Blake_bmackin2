@@ -1,1 +1,3 @@
 This project aims to create a service status dashboard for the servers I already host (Apache Webserver, ESXI, Minecraft, Pterodactyl). This will allow me to view their status and logs from a centralized locations
+
+![image](files://ERD/erd.png) 

@@ -25,5 +25,37 @@ I am using a virtual environment called "django3". This virtual environment will
 
 
 
+
 Why these models/fields:
-For the center of the project, everything revolves
+For the center of the project, everything revolves around the monitoring_service, which is why it is situated at the center of the ERD. For the monitoring app, I needed info about the server, service type,the service itself, probe: which will actually manage communication with the service, and the checkresult which stores the result of the check.
+The server holds information regarding the server the actual service resides on and each server can have multiple services. The servicetype is a descriptor of the service, and can be used many times, as there may be multiple minecraft servers, for example.
+Each service can also have multiple probes, each getting a specific aspect if needed. The checkresult holds multiple results for one probe.
+
+The logging_app also takes advantage of monitoring_service,as it already has information about how to get access to the server/service. Furthermore, there can be multiple logsources per service, for example, an apache web server can have multiple log files.
+
+The logevent will store the actual line-by line logfile. Naturally, there can be multiple log events per log source.
+
+Completely separate from everything else, we have dashboard_view_user, and loginaudit. The user will be the user that actually uses the dashboard and can be categorised as an owner, admin, user, etc. Each login will be logged in loginaudit. Each user has a loginaudit, but not all loginaudits have users.
+
+Relationship Choices:
+I went over the relationships in regards to foreign keys in the previous text, but as to the on_delete rationale, I went for a hierarchical approach. For example, the monitoring service has foreign keys for its monitoring server and monitoring servicetype.
+When servicetype or server are deleted, the monitoring service is also deleted. This cascades, as it then deletes the logsource (as it is now gone) and the logevents are also deleted.
+
+
+Constraints:
+While I did not use any ordering for the moment, I did have many other constraints. Most common is constraints on length to help save space. If I know how large something will be, I can ensure that no space more than that is used.
+I also used unique for servicetype name. Since this is a descriptive name, having multiple of the same name defeats its purpose. I also ensure that the username is unique.
+Lastly, for the user itself, I added the editable=false to "password". Since I don't know how to properly store passwords, I will ensure no passwords can be stored.
+
+
+Seeding test data:
+Since I didn't know how to properly create a user, I ignored it for this part and focused on the primary goal of having monitoring. I did this by first adding a couple servers with different IP addresses and hypothetical locations and OS.
+After that, I added service types with 2 different services.
+With this complete, I can add the actual service now. I added 2 services using the server and service types previously created with different data. After that, I can create multiple probes for the servers.
+Each of those probes has multiple checkresults with different errors or results.
+After that, I can add a logsource, using the service as the source. Each of those log sources then has different events.
+
+What this did was really make me see the connections between the data. I can't create a service without having a server and a service type, and probes need a service, and so on.
+
+
+
