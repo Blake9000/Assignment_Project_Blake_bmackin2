@@ -6,9 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://unpkg.com/@picocss/pico@2/css/pico.min.css" rel="stylesheet">
     <style>
-  .navbar-nav.right {
+  .navbar-nav.center {
     display: flex;
-    justify-content: flex-end;
+    justify-content:center;
     list-style: none;
     margin: 0;
     padding: 0;
@@ -42,10 +42,10 @@
 {% block navbar %}
  <nav>
     <div class="container nav-bar">
-      <ul class="navbar-nav right">
-        <li class="nav-item"><a class="button nav-link" href="#">Dashboard</a></li>
-        <li class="nav-item"><a class="button nav-link" href="#">Logs</a></li>
-        <li class="nav-item"><a class="button nav-link" href="#">Logout</a></li>
+      <ul class="navbar-nav center">
+        <li class="nav-item"><a class="button nav-link" href="/dashboard/">Dashboard</a></li>
+        <li class="nav-item"><a class="button nav-link" href="/logs">Logs</a></li>
+        <li class="nav-item"><a class="button nav-link" href="/login/">Logout</a></li>
       </ul>
     </div>
   </nav>
