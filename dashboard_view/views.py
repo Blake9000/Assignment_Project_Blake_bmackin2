@@ -4,3 +4,4 @@ from dashboard_view.models import User
 
 class DashboardLoginView(ListView):
     model = User
+    template_name = "dashboard_view/dashboard_view_login.html"
