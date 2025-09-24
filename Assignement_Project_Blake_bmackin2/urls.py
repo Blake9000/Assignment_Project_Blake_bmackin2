@@ -17,8 +17,6 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-import logging_app
-from dashboard_view.views import DashboardLoginView
 
 urlpatterns = [
     path('admin/', admin.site.urls),

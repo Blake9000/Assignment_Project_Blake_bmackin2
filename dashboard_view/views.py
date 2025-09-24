@@ -1,7 +1,8 @@
-from django.views.generic import ListView
-from dashboard_view.models import User
+from django.http import HttpResponse
+from django.template import loader
 # Create your views here.
 
-class DashboardLoginView(ListView):
-    model = User
-    template_name = "dashboard_view/dashboard_view_login.html"
+def dashboard_login_view(request):
+    template = loader.get_template('dashboard_view/dashboard_view_login.html')
+    output = template.render()
+    return HttpResponse(output)

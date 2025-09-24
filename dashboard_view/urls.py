@@ -1,6 +1,7 @@
 from django.urls import path, include
 
-from dashboard_view.views import DashboardLoginView
+import dashboard_view
+from dashboard_view.views import dashboard_login_view
 urlpatterns = [
-    path('login/',DashboardLoginView.as_view())
+    path('login/',dashboard_login_view)
 ]
