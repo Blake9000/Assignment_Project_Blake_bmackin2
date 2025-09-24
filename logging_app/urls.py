@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from logging_app.views import LogViews
+from logging_app.views import log_events_view
 urlpatterns = [
-    path('logs/',LogViews.as_view())
+    path('logs/',log_events_view)
 ]
