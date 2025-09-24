@@ -3,26 +3,56 @@
 <!-- Log will look like [Timestamp - Hostname - Level - Message] -->
 <style>
 .log-block {
-    display: grid;
-    grid-template-columns: .2fr auto auto;
-    align-items: center;
+    display: flex;
+    align-items: flex-start;
     padding: 0.75rem 1rem;
     border: 1px solid rgba(0, 0, 0, 0.12);
-    border-radius: 9999px;
+    border-radius: 10px;
     background: #181C25;
     box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
 }
-.status-critical{
+.log{
+    padding-right: 100px;
+}
+.log-name{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 
 }
+.status-critical{
+    color: red;
+}
 .status-error{
-
+    color: orange;
 }
 .status-info{
 
 }
+.log-wrap{
+    margin: 0 auto;
+}
+.message{
+
+}
 </style>
 
+<div class="log-wrap">
+  <ul class="server-list">
+    {% for log in logs %}
+      <li class="log-block">
+          <span class="log timestamp">{{ log.timestamp }}</span>
+          <span class="log log-name">{{ log.source.service_id.server.hostname}}</span>
+          <span class="log {% if log.level == 'CRITICAL' %}status-critical{% elif log.level == 'ERROR'%}status-error{%else%}status-info{% endif %}">{{ log.level }}</span>
+          <span class="log message">{{ log.message }}</span>
+      </li>
+    {% empty %}
+      <li class="log-block">
+        <span class="log-name">No servers</span>
+      </li>
+    {% endfor %}
+  </ul>
+</div>
 
 
 {% endblock %}
