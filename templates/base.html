@@ -5,22 +5,47 @@
     <title>{% block title %}Dashboard{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://unpkg.com/@picocss/pico@2/css/pico.min.css" rel="stylesheet">
+    <style>
+  .navbar-nav.right {
+    display: flex;
+    justify-content: flex-end;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+  }
+  .button.nav-link {
+      padding: 1px 12px;
+      border: 1px outset;
+      margin-left: 5px;
+      border-radius: 3px;
+      text-decoration: none;
+  }
+  .container.header {
+      text-align: center;
+  }
+  .site-header {
+      width: 100%;
+      background-color: #0A1120;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
+    }
+    </style>
 </head>
 <body>
 {% block header %}
-  <header>
-    <div class="container">
+  <header class="site-header">
+    <div class="container header">
       <h1>Dashboard</h1>
     </div>
   </header>
 {% endblock %}
 {% block navbar %}
  <nav>
-    <div class="container">
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link" href="#">Dashboard</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Logs</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Logout</a></li>
+    <div class="container nav-bar">
+      <ul class="navbar-nav right">
+        <li class="nav-item"><a class="button nav-link" href="#">Dashboard</a></li>
+        <li class="nav-item"><a class="button nav-link" href="#">Logs</a></li>
+        <li class="nav-item"><a class="button nav-link" href="#">Logout</a></li>
       </ul>
     </div>
   </nav>
@@ -38,4 +63,6 @@
 
 
 </body>
+
+
 </html>

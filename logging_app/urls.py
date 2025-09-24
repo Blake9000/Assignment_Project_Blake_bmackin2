@@ -1,6 +1,6 @@
 from django.urls import path, include
 
-from dashboard_view.views import DashboardLoginView
+from logging_app.views import LogViews
 urlpatterns = [
-    path('logs/',)
+    path('logs/',LogViews.as_view())
 ]

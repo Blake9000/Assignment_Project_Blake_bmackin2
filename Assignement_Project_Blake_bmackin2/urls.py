@@ -23,7 +23,6 @@ from dashboard_view.views import DashboardLoginView
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard_view.urls')),
-    path("", include('monitoring.urls')),
-
-    path{'', include('logging_app.urls')}
+    path('', include('monitoring.urls')),
+    path('', include('logging_app.urls'))
 ]
