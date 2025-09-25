@@ -44,7 +44,7 @@
           <span class="log log-name">{{ log.source.service_id.server.hostname}}</span>
           <span class="log {% if log.level == 'CRITICAL' %}status-critical{% elif log.level == 'ERROR'%}status-error{%else%}status-info{% endif %}">{{ log.level }}</span>
           <span class="log message">{{ log.message }}</span>
-      </a></li>
+      </li></a>
     {% empty %}
       <li class="log-block">
         <span class="log-name">No servers</span>

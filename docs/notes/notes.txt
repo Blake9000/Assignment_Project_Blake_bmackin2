@@ -59,3 +59,11 @@ What this did was really make me see the connections between the data. I can't c
 
 
 
+A4 Views Notes:
+I wrote the view login as I eventually will need a login screen. It was also a good example of manual HTTP sending. Since it's a static page, it's very simple to just render and send an HTML page to the user.
+For render, I used the logging app view. This is better, since I need to pass data to the template from the view, and the render function makes it very easy to do compared to manual HTTP repsonse.
+I Used the list view class for my monitoring page. I consider this even easier than the render option. Just by passing my data and the template, everything is pretty much done for you.
+
+For the URL design. I decided to have the main URL point to each URL within the app. This will let me organize my URLs much more effectively, allowing me to understand why each URL exists and how to manage it.
+The templates currently are just basic dashboards. I am pretty satisfied with my monitoring view. It shows only what you need to know, the service and status, and will later allow the user to click on it to get more information.
+The log view is currently okay. It works similarly to the dashboard, but with there being a lot more logs, I may need to make it smaller or change the format later. I also need to add search and sort functionalities, so I don't think the current form is sufficient.
