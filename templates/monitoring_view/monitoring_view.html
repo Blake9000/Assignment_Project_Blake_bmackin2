@@ -54,21 +54,29 @@
       box-shadow: 0 0 0 3px rgba(255,255,255,.15);
 
   }
-
   .server-wrap {
     max-width: 900px;
     margin: 0 auto;
+  }
+  .invis-a{
+  text-decoration: none;
+  color: inherit;
+  outline: 0;
+  cursor: auto;
+  }
+  .server-pill:hover {
+      background: #3A455E;
   }
 </style>
 
 <div class="server-wrap">
   <ul class="server-list">
     {% for service in services %}
-      <li class="server-pill">
+      <a href="" class="invis-a"><li class="server-pill">
         <span class="server-name">{{ service.name }}</span>
         <span class="server-type">{{ service.type }}</span>
         <span class="status-dot {% if service.status == 'UP' %}up{% elif service.status == 'DOWN'%}down{%else%}unknown{% endif %}"></span>
-      </li>
+      </li></a>
     {% empty %}
       <li class="server-pill">
         <span class="server-name">No servers</span>
