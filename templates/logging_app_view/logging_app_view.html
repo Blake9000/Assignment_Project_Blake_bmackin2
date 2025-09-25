@@ -33,17 +33,18 @@
 .message{
 
 }
+
 </style>
 
 <div class="log-wrap">
   <ul class="server-list">
     {% for log in logs %}
-      <li class="log-block">
+      <a href="" class="invis-a"> <li class="log-block hover-effect">
           <span class="log timestamp">{{ log.timestamp }}</span>
           <span class="log log-name">{{ log.source.service_id.server.hostname}}</span>
           <span class="log {% if log.level == 'CRITICAL' %}status-critical{% elif log.level == 'ERROR'%}status-error{%else%}status-info{% endif %}">{{ log.level }}</span>
           <span class="log message">{{ log.message }}</span>
-      </li>
+      </a></li>
     {% empty %}
       <li class="log-block">
         <span class="log-name">No servers</span>
