@@ -15,7 +15,7 @@ class LogSource(models.Model):
 
 
 class LogEvent(models.Model):
-    source = models.ForeignKey(LogSource, on_delete=models.CASCADE)
+    source = models.ForeignKey(LogSource, on_delete=models.CASCADE, related_name='events')
     timestamp = models.DateTimeField()
     level = models.CharField(max_length=16) # error, info, warn, critical, etc
     message = models.TextField()
