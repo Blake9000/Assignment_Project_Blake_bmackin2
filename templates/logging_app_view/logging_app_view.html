@@ -3,6 +3,7 @@
     <!-- Log will look like [Timestamp - Hostname - Level - Message] -->
     <style>
         .log-block {
+            position: sticky;
             display: flex;
             align-items: flex-start;
             padding: 0.75rem 1rem;
@@ -12,10 +13,29 @@
             box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
         }
 
+        .log-header {
+            position: sticky;
+            margin-left: 2rem;
+            background: #121621;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #cfd6e4;
+        }
+
         .log {
             padding-right: 100px;
         }
 
+        .log-time{
+            padding-right: 250px;
+        }
+        .log-head{
+            padding-right: 100px;
+        }
         .log-name {
             overflow: hidden;
             text-overflow: ellipsis;
@@ -44,6 +64,12 @@
     </style>
 
     <div class="log-wrap">
+        <div class="log-header log-block">
+            <span class="log-time">Timestamp</span>
+            <span class="log-head">Host</span>
+            <span class="log-head">Level</span>
+            <span class="log-head">Message</span>
+        </div>
         <ul class="server-list">
             {% for log in log_events %}
                 <a href="{% url 'logs-detail' log.pk %}" class="invis-a">
