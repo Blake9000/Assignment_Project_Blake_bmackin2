@@ -66,7 +66,7 @@
 <div class="server-wrap">
   <ul class="server-list">
     {% for service in services %}
-      <a href="" class="invis-a"><li class="server-pill">
+      <a href="{% url 'service-detail' service.pk %}" class="invis-a"><li class="server-pill">
         <span class="server-name">{{ service.name }}</span>
         <span class="server-type">{{ service.type }}</span>
         <span class="status-dot {% if service.status == 'UP' %}up{% elif service.status == 'DOWN'%}down{%else%}unknown{% endif %}"></span>
