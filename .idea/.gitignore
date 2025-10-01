@@ -7,3 +7,6 @@
 /dataSources/
 /dataSources.local.xml
 /.name
+/logging_app/migrations/0002_alter_logevent_source_alter_logsource_service_id.py
+/dashboard_view/migrations/0002_alter_loginaudit_user_alter_user_username.py
+/logging_app/migrations/0003_alter_logevent_source.py
