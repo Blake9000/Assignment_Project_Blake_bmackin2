@@ -5,6 +5,7 @@
         .log-block {
             position: sticky;
             display: flex;
+            margin-right: 2rem;
             align-items: flex-start;
             padding: 0.75rem 1rem;
             border: 1px solid rgba(0, 0, 0, 0.12);
@@ -60,9 +61,23 @@
         .message {
 
         }
+        .search-box{
+            display: flex;
+            gap: .5rem;
+        }
+        .search-button{
+            flex: 1;
+            margin-right: .5rem;
+        }
 
     </style>
 
+    <div class="search">
+     <form method="get" class="search-box">
+      <input type="search" name="q" placeholder="Search any field" style="margin-left:.5rem" >
+      <button type="submit" class="search-button">Search</button>
+    </form>
+    </div>
     <div class="log-wrap">
         <div class="log-header log-block">
             <span class="log-time">Timestamp</span>
