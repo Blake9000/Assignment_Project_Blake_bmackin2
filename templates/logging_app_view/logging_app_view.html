@@ -38,7 +38,7 @@
 
 <div class="log-wrap">
   <ul class="server-list">
-    {% for log in logs %}
+    {% for log in log_events %}
       <a href="" class="invis-a"> <li class="log-block hover-effect">
           <span class="log timestamp">{{ log.timestamp }}</span>
           <span class="log log-name">{{ log.source.service_id.server.hostname}}</span>
