@@ -67,3 +67,13 @@ I Used the list view class for my monitoring page. I consider this even easier t
 For the URL design. I decided to have the main URL point to each URL within the app. This will let me organize my URLs much more effectively, allowing me to understand why each URL exists and how to manage it.
 The templates currently are just basic dashboards. I am pretty satisfied with my monitoring view. It shows only what you need to know, the service and status, and will later allow the user to click on it to get more information.
 The log view is currently okay. It works similarly to the dashboard, but with there being a lot more logs, I may need to make it smaller or change the format later. I also need to add search and sort functionalities, so I don't think the current form is sufficient.
+
+
+A5 Notes:
+Base and generic class based views are very similar. In fact, while reading some of the documentation for the base view, I found that all generic views inherit the base view. As such, the base view is a simple version that still lets you set up views quickly.
+Generic views are more diverse in their actions and purposes. For more specific purposes, you probably want to use a generic view instead of a base view.
+
+These class base views are really helpful. They improve readability by simplifying and standardizing the view, they make it easier for you to create more complex tasks, and reduce the amount of code you have to write.
+
+Refactoring urls is also important. By standardizing the way urls are used and using dynamic urls instead of static ones, you do a couple things. First, if a URL is changed, you don't have to search your code for every place you referenced this URL and change it
+to avoid dead links. Second, you save yourself time by writing shorter code and not having to remember long urls.
