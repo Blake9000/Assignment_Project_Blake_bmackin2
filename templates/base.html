@@ -52,15 +52,14 @@
  <nav>
     <div class="container nav-bar">
       <ul class="navbar-nav center">
-        <li class="nav-item "><a class="button nav-link hover-effect" href="/dashboard/">Dashboard</a></li>
-        <li class="nav-item"><a class="button nav-link hover-effect" href="/logs">Logs</a></li>
+        <li class="nav-item "><a class="button nav-link hover-effect" href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li class="nav-item"><a class="button nav-link hover-effect" href="{% url 'logs' %}">Logs</a></li>
         <li class="nav-item"><a class="button nav-link hover-effect" href="/login/">Logout</a></li>
       </ul>
     </div>
   </nav>
 {% endblock %}
   <main>
-
     <!-- This should be the name of the block that will show it's content here. -->
     {% block main_content %}
 
@@ -68,10 +67,5 @@
 
     {% endblock %}
   </main>
-
-
-
 </body>
-
-
 </html>
