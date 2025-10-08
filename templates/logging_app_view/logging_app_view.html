@@ -69,6 +69,10 @@
             flex: 1;
             margin-right: .5rem;
         }
+        .summary{
+             padding-left: 2rem;
+            padding-bottom: .25rem;
+        }
 
     </style>
 
@@ -77,6 +81,14 @@
       <input type="search" name="q" placeholder="Search any field" style="margin-left:.5rem" >
       <button type="submit" class="search-button">Search</button>
     </form>
+    </div>
+    <div class="summary">
+        <div class="log-head log-block">
+            <span class="log-head">Total logs: {{ total_logs }}</span>
+            {% for event in total_unique %}
+                <span class="log-head"><strong class="{% if event.level == 'CRITICAL' %}status-critical{% elif event.level == 'ERROR' %}status-error{% else %}status-info{% endif %}">{{ event.level }} </strong> Count: {{ event.total }}</span>
+            {% endfor %}
+        </div>
     </div>
     <div class="log-wrap">
         <div class="log-header log-block">

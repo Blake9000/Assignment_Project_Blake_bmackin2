@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, render
 from django.views import View
 from logging_app.models import LogEvent
 from django.views.generic import ListView
-from django.db.models import Q
+from django.db.models import Q, Count
 
 
 class LogEventsView(ListView):
@@ -21,6 +21,12 @@ class LogEventsView(ListView):
             search_qs = LogEvent.objects.all()
         ctx['log_events'] = search_qs
         ctx['q'] = q
+        ctx['total_logs'] = search_qs.count()
+        ctx['total_unique'] = (
+            search_qs.values('level').
+            annotate(total=Count('level')).
+            order_by('-total')
+        )
         return ctx
 
 
