@@ -78,7 +78,7 @@
 
     <div class="search">
      <form method="get" class="search-box">
-      <input type="search" name="q" placeholder="Search any field" style="margin-left:.5rem" >
+      <input type="search" name="q" placeholder="{% if q %} {{ q }} {% else %}Search any field{% endif %}" style="margin-left:.5rem"  >
       <button type="submit" class="search-button">Search</button>
     </form>
     </div>
