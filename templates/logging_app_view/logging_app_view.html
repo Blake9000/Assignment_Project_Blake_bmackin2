@@ -87,6 +87,8 @@
             <span class="log-head">Total logs: {{ total_logs }}</span>
             {% for event in total_unique %}
                 <span class="log-head"><strong class="{% if event.level == 'CRITICAL' %}status-critical{% elif event.level == 'ERROR' %}status-error{% else %}status-info{% endif %}">{{ event.level }} </strong> Count: {{ event.total }}</span>
+            {% empty %}
+                No Logs
             {% endfor %}
         </div>
     </div>
