@@ -10,3 +10,5 @@ The dashboard also shows all the services and their status (UP or DOWN)
 I have added detail views for both logs and services. This allows you to click on a log or service and view all details related to them.
 I have added a search bar to the log viewer. This allows you to search all aspects of the log (timestamp, message, level, etc.).
 I have also refactored links to be dynamic and made some small visual changes.
+
+In A6, I added aggregations. Since I already created a search bar last week, it still remains. The aggregation shows the total logs and the number of unique log types contained within.

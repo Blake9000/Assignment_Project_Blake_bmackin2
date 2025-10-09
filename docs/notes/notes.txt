@@ -77,3 +77,9 @@ These class base views are really helpful. They improve readability by simplifyi
 
 Refactoring urls is also important. By standardizing the way urls are used and using dynamic urls instead of static ones, you do a couple things. First, if a URL is changed, you don't have to search your code for every place you referenced this URL and change it
 to avoid dead links. Second, you save yourself time by writing shorter code and not having to remember long urls.
+
+A6 Notes:
+This week was pretty simple. I had already added a search functionality in the previous week so adding aggregations was only a few extra lines of code. I decided to add this to the logs. This allows you to see the total logs and the types of errors it contains.
+
+Filtering is done early and allows you to modify the query and results of the database. This is done in the search functionality. Aggregation is also somewhat similar, allowing you to group similar information for various purposes. In my project, I group by status
+count to show the user unique log types and their counts.
