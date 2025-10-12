@@ -44,6 +44,10 @@ INSTALLED_APPS = [
     'theme'
 ]
 
+TAILWIND_APP_NAME = "theme"
+
+NPM_BIN_PATH = r"C:\Users\bob\.conda\envs\django3\npm.cmd"
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
