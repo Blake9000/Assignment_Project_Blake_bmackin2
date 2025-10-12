@@ -1,72 +1,43 @@
+{% load static tailwind_tags %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Dashboard{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link href="https://unpkg.com/@picocss/pico@2/css/pico.min.css" rel="stylesheet">
-    <!--suppress CssUnusedSymbol -->
-    <style>
-  .navbar-nav.center {
-    display: flex;
-    justify-content:center;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-  }
-  .button.nav-link {
-      padding: 1px 12px;
-      border: 1px outset;
-      margin-left: 5px;
-      border-radius: 3px;
-      text-decoration: none;
-  }
-  .container.header {
-      text-align: center;
-  }
-  .site-header {
-      width: 100%;
-      background-color: #0A1120;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.2);
-    }
-  .invis-a{
-  text-decoration: none;
-  color: inherit;
-  outline: 0;
-  cursor: auto;
-  }
-  .hover-effect:hover {
-      background: #3A455E;
-  }
-    </style>
+    {% tailwind_css %}
+
 </head>
-<body>
+<body class="min-h-screen bg-slate-950 text-slate-100">
+
 {% block header %}
-  <header class="site-header">
-    <div class="container header">
-      <h1>Dashboard</h1>
-    </div>
-  </header>
+    <header class="w-full bg-slate-900 shadow">
+        <div class="mx-auto max-w-6xl px-4 py-4 text-center">
+            <h1 class="text-2xl font-semibold tracking-tight">Dashboard</h1>
+        </div>
+    </header>
 {% endblock %}
+
 {% block navbar %}
- <nav>
-    <div class="container nav-bar">
-      <ul class="navbar-nav center">
-        <li class="nav-item "><a class="button nav-link hover-effect" href="{% url 'dashboard' %}">Dashboard</a></li>
-        <li class="nav-item"><a class="button nav-link hover-effect" href="{% url 'logs' %}">Logs</a></li>
-        <li class="nav-item"><a class="button nav-link hover-effect" href="/login/">Logout</a></li>
-      </ul>
-    </div>
-  </nav>
+    <nav class="bg-slate-900 border-b border-white/10">
+        <div class="mx-auto max-w-6xl px-4">
+            <ul class="flex items-center justify-center gap-3 py-2">
+                <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
+                       href="{% url 'dashboard' %}">Dashboard</a></li>
+                <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
+                       href="{% url 'logs' %}">Logs</a></li>
+                <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
+                       href="/login/">Logout</a></li>
+            </ul>
+        </div>
+    </nav>
 {% endblock %}
-  <main>
-    <!-- This should be the name of the block that will show it's content here. -->
+
+<main class="mx-auto max-w-6xl px-4 py-6">
     {% block main_content %}
-
-      <p class="text-muted">This is default content. </p>
-
+        <p class="text-slate-400">This is default content.</p>
     {% endblock %}
-  </main>
+</main>
+
 </body>
 </html>

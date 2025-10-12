@@ -1,81 +1,25 @@
 {% extends "base.html" %}
 {% block title %}Servers{% endblock %}
-
 {% block main_content %}
-<style>
-  .server-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: grid;
-    gap: 0.75rem;
-  }
 
-  .server-pill {
-    display: grid;
-    grid-template-columns: .2fr auto auto;
-    align-items: center;
-    padding: 0.75rem 1rem;
-    border: 1px solid rgba(0,0,0,0.12);
-    border-radius: 9999px;
-    background: #181C25;
-    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
-  }
+    <ul class="mx-auto max-w-3xl space-y-2">
+        {% for service in services %}
+            <li>
+                <a href="{% url 'service-detail' service.pk %}"
+                   class="block rounded-3xl border border-white/10 bg-slate-900/80 px-5 py-3 transition delay-150 hover:bg-slate-800">
+                    <div class="flex items-center gap-4">
+                        <span class="font-semibold text-slate-100 w-56 truncate">{{ service.name }}</span>
+                        <span class="text-slate-400 w-48 truncate">{{ service.type }}</span>
+                        <span class="ml-auto h-3 w-3 rounded-full
+      {% if service.status == 'UP' %} bg-emerald-500 {% elif service.status == 'DOWN' %} bg-red-500 {% else %} bg-slate-400 {% endif %}">
+    </span>
+                    </div>
+                </a>
 
-  .server-name {
-    font-weight: 600;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
+            </li>
+        {% empty %}
+            <li class="rounded-full border border-white/10 bg-slate-900/80 px-4 py-3">No servers</li>
+        {% endfor %}
+    </ul>
 
-  .server-type {
-    justify-self: left;
-    margin-left: 1rem;
-  }
-
-  .status-dot {
-    justify-self: end;
-    width: 12px;
-    height: 12px;
-    border-radius: 9999px;
-    margin-left: 0.75rem;
-  }
-  .status-dot.up {
-    background: #16a34a;
-    box-shadow: 0 0 0 3px rgba(22,163,74,.15);
-  }
-  .status-dot.down {
-    background: #dc2626;
-    box-shadow: 0 0 0 3px rgba(220,38,38,.15);
-  }
-  .status-dot.unknown {
-      background: #F0F0F0;
-      box-shadow: 0 0 0 3px rgba(255,255,255,.15);
-
-  }
-  .server-wrap {
-    max-width: 900px;
-    margin: 0 auto;
-  }
-  .server-pill:hover {
-      background: #3A455E;
-  }
-</style>
-
-<div class="server-wrap">
-  <ul class="server-list">
-    {% for service in services %}
-      <a href="{% url 'service-detail' service.pk %}" class="invis-a"><li class="server-pill">
-        <span class="server-name">{{ service.name }}</span>
-        <span class="server-type">{{ service.type }}</span>
-        <span class="status-dot {% if service.status == 'UP' %}up{% elif service.status == 'DOWN'%}down{%else%}unknown{% endif %}"></span>
-      </li></a>
-    {% empty %}
-      <li class="server-pill">
-        <span class="server-name">No servers</span>
-      </li>
-    {% endfor %}
-  </ul>
-</div>
 {% endblock %}

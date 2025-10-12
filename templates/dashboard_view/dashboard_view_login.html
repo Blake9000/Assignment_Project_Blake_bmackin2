@@ -1,33 +1,29 @@
 {% extends "base.html" %}
-
-{% block title %}
-    Login
-{% endblock %}
-<!-- Remove header for login -->
-{% block header %} {% endblock %}
-<!-- Remove navbar for login -->
+{% block title %}Login{% endblock %}
+{% block header %}{% endblock %}
 {% block navbar %}{% endblock %}
 
 {% block main_content %}
-    <style>
-    .container{
-        max-width: 400px;
-        margin: auto;
-        padding-top: 10vh;
-    }
-    </style>
-<body>
-  <main class="container" style="max-width: 400px; margin: auto; padding-top: 10vh;">
-    <h1 style="text-align: center;">Login</h1>
-    <form method="post" action="/login/">
-      <label for="username">Username</label>
-      <input type="text" id="username" name="username" placeholder="Enter username" required>
-
-      <label for="password">Password</label>
-      <input type="password" id="password" name="password" placeholder="Enter password" required>
-
-      <button type="submit" style="width: 100%;">Login</button>
+<main class="mx-auto grid min-h-[60vh] max-w-sm place-items-start pt-16">
+  <div class="w-full">
+    <h1 class="mb-4 text-center text-2xl font-semibold">Login</h1>
+    <form method="post" action="/login/" class="space-y-3">
+      {% csrf_token %}
+      <div>
+        <label for="username" class="mb-1 block text-sm text-slate-300">Username</label>
+        <input id="username" name="username" required
+               class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500">
+      </div>
+      <div>
+        <label for="password" class="mb-1 block text-sm text-slate-300">Password</label>
+        <input id="password" name="password" type="password" required
+               class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-slate-100 focus:outline-none focus:ring-2 focus:ring-sky-500">
+      </div>
+      <button type="submit"
+              class="w-full rounded-lg border border-white/10 bg-slate-800 px-4 py-2 font-medium hover:bg-slate-700">
+        Login
+      </button>
     </form>
-  </main>
-
+  </div>
+</main>
 {% endblock %}
