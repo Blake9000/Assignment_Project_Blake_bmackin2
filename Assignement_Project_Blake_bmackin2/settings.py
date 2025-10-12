@@ -39,7 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'logging_app',
     'dashboard_view',
-    'monitoring'
+    'monitoring',
+    'tailwind',
+    'theme'
 ]
 
 MIDDLEWARE = [
