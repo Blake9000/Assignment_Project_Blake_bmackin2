@@ -2,64 +2,67 @@
 {% block title %}Server Details{% endblock %}
 {% block main_content %}
 
-<a href="{% url 'dashboard' %}" class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800">Back to Dashboard</a>
+    <a href="{% url 'dashboard' %}"
+       class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800">Back to
+        Dashboard</a>
 
-<article class="mt-3 rounded-2xl border border-white/10 bg-slate-900/80 p-6 shadow">
-  <header class="mb-4 text-center">
-    <h2 class="m-0 text-2xl font-semibold">{{ service.name }}</h2>
-    <h3 class="m-0 text-slate-300">{{ service_type.name }}</h3>
-  </header>
+    <article class="mt-3 rounded-2xl border border-white/10 bg-slate-900/80 p-6 shadow">
+        <header class="mb-4 text-center">
+            <h2 class="m-0 text-2xl font-semibold">{{ service.name }}</h2>
+            <h3 class="m-0 text-slate-300">{{ service_type.name }}</h3>
+        </header>
 
-  <section>
-    <h3 class="mb-0 text-lg font-semibold">Service Information</h3>
-    <h4 class="mt-0 text-slate-300">Service located on: {{ server.hostname }}</h4>
-    <hr class="my-3 border-white/10">
-    <div class="grid gap-6 md:grid-cols-2">
-      <div>
-        <h4 class="mb-2 font-semibold">Service Info</h4>
-        <ul class="space-y-1 text-slate-200">
-          <li><strong>Name:</strong> {{ service.name }}</li>
-          <li><strong>Host:</strong> {{ service.hostname }}:{{ service.port }}</li>
-          <li><strong>Status:</strong> {{ service.status }}</li>
-          <li><strong>Type:</strong> {{ service.type }}</li>
-        </ul>
-      </div>
+        <section>
+            <h3 class="mb-0 text-lg font-semibold">Service Location</h3>
+            <h4 class="mt-0 text-slate-300">Service located on: {{ server.hostname }}</h4>
+            <hr class="my-3 border-white/10">
+            <div class="grid gap-6 md:grid-cols-2">
+                <div>
+                    <h3 class="mb-2 font-semibold">Service Info</h3>
+                    <ul class="space-y-1 text-slate-200">
+                        <li><strong>Name:</strong> {{ service.name }}</li>
+                        <li><strong>Host:</strong> {{ service.hostname }}:{{ service.port }}</li>
+                        <li><strong>Status:</strong> {{ service.status }}</li>
+                        <li><strong>Type:</strong> {{ service.type }}</li>
+                    </ul>
+                </div>
 
-      <div class="md:col-span-1">
-        {% for single in probe %}
-          <h4 class="mb-2 font-semibold">Probe {{ single.id }}</h4>
-          <ul class="mb-4 space-y-1 text-slate-200">
-            <li><strong>Probe Type:</strong> {{ single.probe_type }}</li>
-            <li><strong>Probe Target:</strong> {{ single.target }}</li>
-            <li><strong>Probe Interval:</strong> {{ single.interval_seconds }}</li>
-            <li><strong>Probe Timeout:</strong> {{ single.timeout_seconds }}</li>
-            <li><strong>Probe Status:</strong> {% if single.enabled %}UP{% else %}DOWN{% endif %}</li>
-            <li><strong>Additional Settings:</strong> {% if single.settings %} {{ single.settings }} {% else %} No Additional Settings {% endif %}</li>
-          </ul>
+                <div class="md:col-span-1">
+                    {% for single in probe %}
+                        <h4 class="mb-2 font-semibold">Probe {{ single.id }}</h4>
+                        <ul class="mb-4 space-y-1 text-slate-200">
+                            <li><strong>Probe Type:</strong> {{ single.probe_type }}</li>
+                            <li><strong>Probe Target:</strong> {{ single.target }}</li>
+                            <li><strong>Probe Interval:</strong> {{ single.interval_seconds }}</li>
+                            <li><strong>Probe Timeout:</strong> {{ single.timeout_seconds }}</li>
+                            <li><strong>Probe Status:</strong> {% if single.enabled %}UP{% else %}DOWN{% endif %}</li>
+                            <li><strong>Additional Settings:</strong> {% if single.settings %}
+                                {{ single.settings }} {% else %} No Additional Settings {% endif %}</li>
+                        </ul>
+                        </div>
+                        <details class="col-span-2 border border-white/10 bg-slate-900 px-4 py-3">
+                            <summary class="cursor-pointer font-semibold">Check Results</summary>
+                            <ul class="mt-2 space-y-1 text-sm text-slate-300">
+                                {% for result in check_results %}
+                                    <li>
+                                        {{ result.timestamp|date:"Y-m-d H:i" }} —
+                                        {{ result.result }}
+                                        {% if result.latency_ms %} | Latency: {{ result.latency_ms }} ms{% endif %}
+                                        {% if result.http_status %} | HTTP: {{ result.http_status }}{% endif %}
+                                        {% if result.error %} | Error: {{ result.error }}{% endif %}
+                                        {% if result.extra %} | Extra: {{ result.extra }}{% endif %}
+                                    </li>
+                                {% empty %}
+                                    <li><strong>No Results</strong></li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                    {% empty %}
+                        <p><strong>No Probes</strong></p>
+                    {% endfor %}
 
-          <details class="rounded-lg border border-white/10 bg-slate-900 px-4 py-3">
-            <summary class="cursor-pointer font-semibold">Check Results</summary>
-            <ul class="mt-2 space-y-1 text-sm text-slate-300">
-              {% for result in check_results %}
-                <li>
-                  {{ result.timestamp|date:"Y-m-d H:i" }} —
-                  {{ result.result }}
-                  {% if result.latency_ms %} | Latency: {{ result.latency_ms }} ms{% endif %}
-                  {% if result.http_status %} | HTTP: {{ result.http_status }}{% endif %}
-                  {% if result.error %} | Error: {{ result.error }}{% endif %}
-                  {% if result.extra %} | Extra: {{ result.extra }}{% endif %}
-                </li>
-              {% empty %}
-                <li><strong>No Results</strong></li>
-              {% endfor %}
-            </ul>
-          </details>
-        {% empty %}
-          <p><strong>No Probes</strong></p>
-        {% endfor %}
-      </div>
-    </div>
-  </section>
-</article>
+            </div>
+        </section>
+    </article>
 
 {% endblock %}

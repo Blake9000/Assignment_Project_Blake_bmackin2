@@ -2,65 +2,65 @@
 
 {% block main_content %}
 
-<form method="get" class="mb-4">
-  <div class="flex gap-2">
-    <input
-      type="search"
-      name="q"
-      placeholder="{% if q %}{{ q }}{% else %}Search any field{% endif %}"
-      class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
-    >
-    <button
-      type="submit"
-      class="shrink-0 rounded-lg border border-white/10 bg-slate-800 px-4 py-2 hover:bg-slate-700"
-    >
-      Search
-    </button>
-  </div>
-</form>
+    <form method="get" class="mb-4">
+        <div class="flex gap-2">
+            <input
+                    type="search"
+                    name="q"
+                    placeholder="{% if q %}{{ q }}{% else %}Search any field{% endif %}"
+                    class="w-full rounded-lg border border-white/10 bg-slate-900 px-3 py-2 text-slate-100 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-sky-500"
+            >
+            <button
+                    type="submit"
+                    class="shrink-0 rounded-lg border border-white/10 bg-slate-800 px-4 py-2 hover:bg-slate-700"
+            >
+                Search
+            </button>
+        </div>
+    </form>
 
-<div class="mb-3 rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 shadow">
-  <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
-    <span class="font-medium">Total logs: {{ total_logs }}</span>
-    {% for event in total_unique %}
-      <span>
+    <div class="mb-3 rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 shadow">
+        <div class="flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+            <span class="font-medium">Total logs: {{ total_logs }}</span>
+            {% for event in total_unique %}
+                <span>
         <strong
-          class="{% if event.level == 'CRITICAL' %} text-red-400 {% elif event.level == 'ERROR' %} text-orange-400 {% else %} text-slate-200 {% endif %}"
+                class="{% if event.level == 'CRITICAL' %} text-red-400 {% elif event.level == 'ERROR' %} text-orange-400 {% else %} text-slate-200 {% endif %}"
         >{{ event.level }}</strong>
         Count: {{ event.total }}
       </span>
-    {% empty %}
-      <span>No Logs</span>
-    {% endfor %}
-  </div>
-</div>
+            {% empty %}
+                <span>No Logs</span>
+            {% endfor %}
+        </div>
+    </div>
 
-<div class="flex mb-2 rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2 text-xs font-semibold uppercase text-slate-300">
-  <span class="flex-auto">Timestamp</span>
-  <span class="flex-auto">Host</span>
-  <span class="flex-auto">Level</span>
-  <span class="flex-auto">Message</span>
-</div>
+    <div class="flex mb-2 rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2 text-xs font-semibold uppercase text-slate-300 gap-4">
+        <span class="w-42">Timestamp</span>
+        <span class="w-34">Host</span>
+        <span class="w-34">Level</span>
+        <span class="w-34">Message</span>
+    </div>
 
-<ul class="space-y-2">
-  {% for log in log_events %}
-    <li class="flex">
-      <a href="{% url 'logs-detail' log.pk %}" class="block rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 hover:bg-slate-800">
-        <div class="flex-1 items-start gap-3 text-sm">
-          <span class="flex-1 truncate text-slate-300">{{ log.timestamp }}</span>
-          <span class="flex-1 truncate text-slate-200">{{ log.source.service_id.server.hostname }}</span>
-          <span class="flex-1 font-medium {% if log.level == 'CRITICAL' %} text-red-400 {% elif log.level == 'ERROR' %} text-orange-400 {% else %} text-slate-200 {% endif %}">
+    <ul class="space-y-2">
+        {% for log in log_events %}
+            <li class="block rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 hover:bg-slate-800">
+                <a href="{% url 'logs-detail' log.pk %}" class="">
+                    <div class="flex gap-6 items-start text-sm">
+                        <span class="w-40 truncate text-slate-300">{{ log.timestamp }}</span>
+                        <span class="w-32 truncate text-slate-200">{{ log.source.service_id.server.hostname }}</span>
+                        <span class="w-32 font-medium {% if log.level == 'CRITICAL' %} text-red-400 {% elif log.level == 'ERROR' %} text-orange-400 {% else %} text-slate-200 {% endif %}">
             {{ log.level }}
           </span>
-          <span class="flex-auto truncate text-slate-100">{{ log.message }}</span>
-        </div>
-      </a>
-    </li>
-  {% empty %}
-    <li class="rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 text-slate-300">
-      No servers
-    </li>
-  {% endfor %}
-</ul>
+                        <span class="flex-auto truncate text-slate-100">{{ log.message }}</span>
+                    </div>
+                </a>
+            </li>
+        {% empty %}
+            <li class="rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 text-slate-300">
+                No servers
+            </li>
+        {% endfor %}
+    </ul>
 
 {% endblock %}
