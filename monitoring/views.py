@@ -31,3 +31,4 @@ class ServiceDetailView(View):
                 )
             }
         )
+
