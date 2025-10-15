@@ -57,10 +57,18 @@
                 </a>
             </li>
         {% empty %}
-            <li class="rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 text-slate-300">
+            <li class="rounded-xl  bg-slate-900/80 px-4 py-3 text-slate-300">
                 No servers
             </li>
         {% endfor %}
     </ul>
+    <div class="grid-cols-2 w-full text-center py-3">
+        {% if log_events %}
+            <img src="{% url 'errors-pie' %}?q={{ q|default:''|urlencode }}" alt="Pie Chart Showing Log Event Frequency"
+                 class=""/>
 
+
+
+        {% endif %}
+    </div>
 {% endblock %}
