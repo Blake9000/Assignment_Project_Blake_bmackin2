@@ -77,7 +77,7 @@ def errors_pie_chart(request):
     if sum(sizes) == 0:
         return HttpResponse()
 
-    fig, ax = plt.subplots(figsize=(10, 5), dpi=200)
+    fig, ax = plt.subplots(figsize=(5, 2), dpi=100)
     ax.pie(sizes, labels=labels)
     ax.set_title("Log Event Frequency")
     fig.tight_layout()
