@@ -62,9 +62,9 @@
             </li>
         {% endfor %}
     </ul>
-    <div class="w-full grid grid-cols-2 gap-4 ">
+    <div class="w-full flex gap-4 ">
         {% if log_events %}
-            <div class="col-span-1">
+            <div class="w-10">
                 <img src="{% url 'errors-pie' %}?q={{ q|default:'' }}"
                      alt="Pie Chart Showing Log Event Frequency" class="block mx-auto"
                 />

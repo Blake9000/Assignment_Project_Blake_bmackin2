@@ -12,3 +12,6 @@ I have added a search bar to the log viewer. This allows you to search all aspec
 I have also refactored links to be dynamic and made some small visual changes.
 
 In A6, I added aggregations. Since I already created a search bar last week, it still remains. The aggregation shows the total logs and the number of unique log types contained within.
+
+A7: I migrated my static CSS to Tailwind. This will make further development a lot easier and help streamline my code. For my charts, I used both matplotlib and chart.js.
+Matplotlib is great for developing charts, but this experience really goes to show its limitations. Just loading the charts, there is a noticable delay before the matplotlib is generated compared to js.
