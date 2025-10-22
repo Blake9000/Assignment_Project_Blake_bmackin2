@@ -1,2 +1,46 @@
 {% extends "dashboard_view/admin_base.html" %}
 {% block title %} Services {% endblock %}
+
+{% block main_content %}
+<main class="flex-1 overflow-y-auto bg-slate-800 p-6">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-semibold">Services</h2>
+    <a href="#" class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+      + Add
+    </a>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg border border-white/10 bg-slate-900">
+    <table class="min-w-full text-left text-sm">
+      <thead class="border-b border-white/10 bg-slate-900/70 text-slate-300">
+        <tr>
+          <th class="px-4 py-3">Name</th>
+          <th class="px-4 py-3">Server</th>
+          <th class="px-4 py-3">Type</th>
+          <th class="px-4 py-3">Host</th>
+          <th class="px-4 py-3">Port</th>
+          <th class="px-4 py-3">Status</th>
+          <th class="px-4 py-3">Created</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        {% for s in services %}
+        <tr class="hover:bg-slate-800/60">
+          <td class="px-4 py-3">{{ s.name }}</td>
+          <td class="px-4 py-3">{{ s.server.hostname }}</td>
+          <td class="px-4 py-3">{{ s.type.name }}</td>
+          <td class="px-4 py-3">{{ s.hostname }}</td>
+          <td class="px-4 py-3">{{ s.port }}</td>
+          <td class="px-4 py-3">{{ s.status }}</td>
+          <td class="px-4 py-3">{{ s.created_at }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td class="px-4 py-6 text-slate-400" colspan="7">No records yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}

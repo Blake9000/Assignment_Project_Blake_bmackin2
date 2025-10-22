@@ -1,8 +1,8 @@
 from django.http import HttpResponse
 from django.template import loader
 from django.views.generic import TemplateView, ListView
-from monitoring.models import Service, CheckResult, Server
-
+from monitoring.models import Service, CheckResult, Server, Probe, ServiceType
+from logging_app.models import LogSource
 # Create your views here.
 
 def dashboard_login_view(request):
@@ -19,3 +19,23 @@ class AdminServers(ListView):
     model = Server
     context_object_name = 'servers'
     template_name = 'dashboard_view/admin_servers.html'
+
+class AdminLogSource(ListView):
+    model = LogSource
+    context_object_name = 'log_sources'
+    template_name = 'dashboard_view/admin_log_sources.html'
+
+class AdminMonitoringProbes(ListView):
+    model = Probe
+    context_object_name = 'monitoring_probes'
+    template_name = 'dashboard_view/admin_monitoring_probes.html'
+
+class AdminServiceTypes(ListView):
+    model = ServiceType
+    context_object_name = 'service_types'
+    template_name = 'dashboard_view/admin_service_types.html'
+
+class AdminService(ListView):
+    model = Service
+    context_object_name = 'services'
+    template_name = 'dashboard_view/admin_services.html'

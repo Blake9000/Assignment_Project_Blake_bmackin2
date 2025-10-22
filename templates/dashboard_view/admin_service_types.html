@@ -1,2 +1,36 @@
 {% extends "dashboard_view/admin_base.html" %}
 {% block title %} Service Types {% endblock %}
+
+{% block main_content %}
+<main class="flex-1 overflow-y-auto bg-slate-800 p-6">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-2xl font-semibold">Service Types</h2>
+    <a href="#" class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+      + Add
+    </a>
+  </div>
+
+  <div class="overflow-x-auto rounded-lg border border-white/10 bg-slate-900">
+    <table class="min-w-full text-left text-sm">
+      <thead class="border-b border-white/10 bg-slate-900/70 text-slate-300">
+        <tr>
+          <th class="px-4 py-3">Name</th>
+          <th class="px-4 py-3">Description</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-white/5">
+        {% for st in service_types %}
+        <tr class="hover:bg-slate-800/60">
+          <td class="px-4 py-3">{{ st.name }}</td>
+          <td class="px-4 py-3">{{ st.description }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td class="px-4 py-6 text-slate-400" colspan="2">No records yet.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</main>
+{% endblock %}
