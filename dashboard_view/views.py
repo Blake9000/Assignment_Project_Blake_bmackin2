@@ -10,5 +10,5 @@ def dashboard_login_view(request):
     return HttpResponse(output)
 
 
-class SettingsView(TemplateView):
-    template_name = 'dashboard_view/settings.html'
+class AdminView(TemplateView):
+    template_name = 'dashboard_view/admin.html'
