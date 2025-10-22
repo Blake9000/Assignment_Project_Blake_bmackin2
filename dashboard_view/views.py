@@ -11,4 +11,4 @@ def dashboard_login_view(request):
 
 
 class AdminView(TemplateView):
-    template_name = 'dashboard_view/admin.html'
+    template_name = 'dashboard_view/admin_overview.html'
