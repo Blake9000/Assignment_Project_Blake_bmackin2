@@ -1,8 +1,14 @@
+from urllib import request
+
 from django.http import HttpResponse
+from django.shortcuts import redirect, render
 from django.template import loader
-from django.views.generic import TemplateView, ListView
+from django.views.generic import TemplateView, ListView, CreateView
 from monitoring.models import Service, CheckResult, Server, Probe, ServiceType
 from logging_app.models import LogSource
+from .forms import ServiceTypeForm, ServerForm
+
+
 # Create your views here.
 
 def dashboard_login_view(request):
@@ -39,3 +45,21 @@ class AdminService(ListView):
     model = Service
     context_object_name = 'services'
     template_name = 'dashboard_view/admin_services.html'
+
+
+def service_type_add(request):
+    if request.method == "POST":
+        form = ServiceTypeForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Success!')
+    else:
+        form = ServiceTypeForm()
+    return render(request, 'dashboard_view/partials/_service_types_form.html', {'form': form})
+
+class ServerAdd(CreateView):
+    model = Server
+    form_class = ServerForm
+    template_name = 'dashboard_view/partials/_server_form.html'
+
+

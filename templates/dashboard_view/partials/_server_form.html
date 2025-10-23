@@ -1,0 +1,37 @@
+<form hx-post="{% url 'server-add' %}"
+      hx-target="#modal-body"
+      hx-swap="innerHTML"
+      class="space-y-4">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Hostname</label>
+    {{ form.hostname }}
+  </div>
+  <div>
+    <label class="mb-1 block text-sm font-medium">IP Address</label>
+    {{ form.ip_address }}
+  </div>
+  <div>
+    <label class="mb-1 block text-sm font-medium">Location</label>
+    {{ form.location }}
+  </div>
+    <div>
+    <label class="mb-1 block text-sm font-medium">Operating System</label>
+    {{ form.os }}
+  </div>
+
+
+  <div class="flex justify-end space-x-2 pt-2 border-t border-white/10">
+    <button type="button"
+            onclick="closeModal()"
+            class="rounded-md border border-white/10 px-3 py-2 text-sm hover:bg-slate-800">
+      Cancel
+    </button>
+    <button type="submit"
+            class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+      Create
+    </button>
+  </div>
+</form>
