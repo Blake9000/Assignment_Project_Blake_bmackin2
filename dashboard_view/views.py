@@ -53,6 +53,8 @@ def service_type_add(request):
         if form.is_valid():
             form.save()
             return HttpResponse('Success!')
+        else:
+            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
     else:
         form = ServiceTypeForm()
     return render(request, 'dashboard_view/partials/_service_types_form.html', {'form': form})
