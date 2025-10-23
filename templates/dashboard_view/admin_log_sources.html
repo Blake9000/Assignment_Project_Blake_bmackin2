@@ -5,9 +5,12 @@
 <main class="flex-1 overflow-y-auto bg-slate-800 p-6">
   <div class="flex items-center justify-between mb-4">
     <h2 class="text-2xl font-semibold">Log Sources</h2>
-    <a href="#" class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
-      + Add
-    </a>
+    <a hx-get="{% url 'log-sources-add' %}"
+   hx-target="#modal-body"
+   hx-swap="innerHTML"
+   class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+  + Add
+</a>
   </div>
 
   <div class="overflow-x-auto rounded-lg border border-white/10 bg-slate-900">

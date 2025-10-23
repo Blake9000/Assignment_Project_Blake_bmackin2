@@ -1,7 +1,7 @@
 from django.urls import path, include
 from dashboard_view import views
 from dashboard_view.views import dashboard_login_view, AdminServers, AdminLogSource, AdminMonitoringProbes, \
-    AdminServiceTypes, AdminService, ServerAdd
+    AdminServiceTypes, AdminService, server_add, monitoring_probe_add
 from dashboard_view.views import AdminView
 
 urlpatterns = [
@@ -20,6 +20,12 @@ urlpatterns = [
 
     path('admin/service_types/add',views.service_type_add, name='service-types-add'),
 
-    path('admin/servers/add', ServerAdd.as_view(), name='server-add'),
+    path('admin/servers/add', views.server_add, name='server-add'),
+
+    path('admin/probes/add',views.monitoring_probe_add, name='monitoring-probe-add'),
+
+    path('admin/services/add', views.service_add, name='service-add'),
+
+    path('admin/log_sources/add', views.log_source_add, name='log-sources-add'),
 
 ]

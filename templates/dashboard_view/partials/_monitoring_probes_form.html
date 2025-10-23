@@ -1,0 +1,50 @@
+<form hx-post="{% url 'monitoring-probe-add' %}"
+      hx-target="#modal-body"
+      hx-swap="innerHTML"
+      class="space-y-4">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Service</label>
+    {{ form.service }}
+  </div>
+  <div>
+    <label class="mb-1 block text-sm font-medium">Probe Type</label>
+    {{ form.probe_type }}
+  </div>
+  <div>
+    <label class="mb-1 block text-sm font-medium">Target</label>
+    {{ form.target }}
+  </div>
+    <div>
+    <label class="mb-1 block text-sm font-medium">Interval Time in Seconds</label>
+    {{ form.interval_seconds }}
+  </div>
+    <div>
+    <label class="mb-1 block text-sm font-medium">Timeout Time in Seconds</label>
+    {{ form.timeout_seconds }}
+  </div>
+        <div>
+    <label class="mb-1 block text-sm font-medium">Enabled</label>
+    {{ form.enabled }}
+  </div>
+    <div>
+    <label class="mb-1 block text-sm font-medium">Additional Settings</label>
+    {{ form.settings }}
+  </div>
+
+
+
+  <div class="flex justify-end space-x-2 pt-2 border-t border-white/10">
+    <button type="button"
+            onclick="closeModal()"
+            class="rounded-md border border-white/10 px-3 py-2 text-sm hover:bg-slate-800">
+      Cancel
+    </button>
+    <button type="submit"
+            class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+      Create
+    </button>
+  </div>
+</form>

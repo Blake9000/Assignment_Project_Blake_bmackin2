@@ -6,7 +6,7 @@ from django.template import loader
 from django.views.generic import TemplateView, ListView, CreateView
 from monitoring.models import Service, CheckResult, Server, Probe, ServiceType
 from logging_app.models import LogSource
-from .forms import ServiceTypeForm, ServerForm
+from .forms import ServiceTypeForm, ServerForm, MonitoringProbesForm, ServiceForm, LogSourceForm
 
 
 # Create your views here.
@@ -59,9 +59,51 @@ def service_type_add(request):
         form = ServiceTypeForm()
     return render(request, 'dashboard_view/partials/_service_types_form.html', {'form': form})
 
-class ServerAdd(CreateView):
-    model = Server
-    form_class = ServerForm
-    template_name = 'dashboard_view/partials/_server_form.html'
+def monitoring_probe_add(request):
+    if request.method == "POST":
+        form = MonitoringProbesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Success!')
+        else:
+            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+    else:
+        form = MonitoringProbesForm()
+    return render(request, 'dashboard_view/partials/_monitoring_probes_form.html', {'form': form})
+
+def server_add(request):
+    if request.method == "POST":
+        form = ServerForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Success!')
+        else:
+            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+    else:
+        form = ServerForm()
+    return render(request, 'dashboard_view/partials/_server_form.html', {'form': form})
 
 
+def service_add(request):
+    if request.method == "POST":
+        form = ServiceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Success!')
+        else:
+            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+    else:
+        form = ServiceForm()
+    return render(request, 'dashboard_view/partials/_services_form.html', {'form': form})
+
+def log_source_add(request):
+    if request.method == "POST":
+        form = LogSourceForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Success!')
+        else:
+            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+    else:
+        form = LogSourceForm()
+    return render(request, 'dashboard_view/partials/_log_sources_form.html', {'form': form})

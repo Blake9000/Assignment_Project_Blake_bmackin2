@@ -20,12 +20,17 @@ class ServiceType(models.Model):
         return self.name
 
 class Service(models.Model):
+    STATUS_CHOICES = (
+        ("UP", 'Up'),
+        ("DOWN", 'Down'),
+        ("UNKNOWN", 'Unknown'),
+    )
     server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
     type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='services')
     name = models.CharField(max_length=128)
     hostname = models.CharField(max_length=255)
     port = models.PositiveIntegerField()
-    status = models.CharField(max_length=16, default="UNKNOWN") #I'm thinking I will use UP, DOWN, and UNKNOWN
+    status = models.CharField(max_length=16,choices=STATUS_CHOICES, default="UNKNOWN")
     config = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

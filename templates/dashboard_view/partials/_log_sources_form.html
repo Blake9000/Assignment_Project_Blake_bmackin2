@@ -1,0 +1,39 @@
+<form hx-post="{% url 'log-sources-add' %}"
+      hx-target="#modal-body"
+      hx-swap="innerHTML"
+      class="space-y-4">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Service</label>
+    {{ form.service_id }}
+  </div>
+  <div>
+    <label class="mb-1 block text-sm font-medium">Source Type</label>
+    {{ form.source_type }}
+  </div>
+  <div>
+    <label class="mb-1 block text-sm font-medium">Path to Logs</label>
+    {{ form.path }}
+  </div>
+    <div>
+    <label class="mb-1 block text-sm font-medium">Parser</label>
+    {{ form.parser }}
+  </div>
+        <div>
+
+
+
+  <div class="flex justify-end space-x-2 pt-2 border-t border-white/10">
+    <button type="button"
+            onclick="closeModal()"
+            class="rounded-md border border-white/10 px-3 py-2 text-sm hover:bg-slate-800">
+      Cancel
+    </button>
+    <button type="submit"
+            class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+      Create
+    </button>
+  </div>
+</form>
