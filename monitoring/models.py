@@ -30,7 +30,7 @@ class Service(models.Model):
     name = models.CharField(max_length=128)
     hostname = models.CharField(max_length=255)
     port = models.PositiveIntegerField()
-    status = models.CharField(max_length=16,choices=STATUS_CHOICES, default="UNKNOWN")
+    status = models.CharField(max_length=16,choices=STATUS_CHOICES, default="UNKNOWN", blank=True)
     config = models.JSONField(default=dict, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
 

@@ -54,7 +54,7 @@ def service_type_add(request):
             form.save()
             return HttpResponse('Success!')
         else:
-            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+            return HttpResponse(f'<script>alert("Invalid Entry, fix errors: {form.errors.as_text().replace('\n','')}");</script>', headers={"HX-Reswap": "afterend"})
     else:
         form = ServiceTypeForm()
     return render(request, 'dashboard_view/partials/_service_types_form.html', {'form': form})
@@ -66,7 +66,7 @@ def monitoring_probe_add(request):
             form.save()
             return HttpResponse('Success!')
         else:
-            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+            return HttpResponse(f'<script>alert("Invalid Entry, fix errors: {form.errors.as_text().replace('\n','')}");</script>', headers={"HX-Reswap": "afterend"})
     else:
         form = MonitoringProbesForm()
     return render(request, 'dashboard_view/partials/_monitoring_probes_form.html', {'form': form})
@@ -78,7 +78,7 @@ def server_add(request):
             form.save()
             return HttpResponse('Success!')
         else:
-            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+            return HttpResponse(f'<script>alert("Invalid Entry, fix errors: {form.errors.as_text().replace('\n','')}");</script>', headers={"HX-Reswap": "afterend"})
     else:
         form = ServerForm()
     return render(request, 'dashboard_view/partials/_server_form.html', {'form': form})
@@ -91,7 +91,7 @@ def service_add(request):
             form.save()
             return HttpResponse('Success!')
         else:
-            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+            return HttpResponse(f'<script>alert("Invalid Entry, fix errors: {form.errors.as_text().replace('\n','')}");</script>', headers={"HX-Reswap": "afterend"})
     else:
         form = ServiceForm()
     return render(request, 'dashboard_view/partials/_services_form.html', {'form': form})
@@ -103,7 +103,7 @@ def log_source_add(request):
             form.save()
             return HttpResponse('Success!')
         else:
-            return HttpResponse('<script>alert("Invalid Entry");</script>', headers={"HX-Reswap": "afterend"})
+            return HttpResponse(f'<script>alert("Invalid Entry, fix errors: {form.errors.as_text().replace('\n','')}");</script>', headers={"HX-Reswap": "afterend"})
     else:
         form = LogSourceForm()
     return render(request, 'dashboard_view/partials/_log_sources_form.html', {'form': form})

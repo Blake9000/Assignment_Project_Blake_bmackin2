@@ -65,14 +65,14 @@ class ServiceForm(forms.ModelForm):
     def clean_port(self):
         return self.cleaned_data['port']
     def clean_config(self):
-        return self.cleaned_data['config'].strip()
+        return self.cleaned_data['config']
 
 class LogSourceForm(forms.ModelForm):
     class Meta:
         model = LogSource
         fields = "__all__"
     def clean_service_id(self):
-        return self.cleaned_data['service_id'].strip()
+        return self.cleaned_data['service_id']
     def clean_source_type(self):
         return self.cleaned_data['source_type'].strip()
     def clean_path(self):
