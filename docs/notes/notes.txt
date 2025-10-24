@@ -85,7 +85,7 @@ Filtering is done early and allows you to modify the query and results of the da
 count to show the user unique log types and their counts.
 
 
-A7 Nots:
+A7 Notes:
 
 Static files are generally css and images that you want to reference in your project. Having a single organized location for these files makes the code a lot cleaner and improves readability.
 
@@ -96,3 +96,17 @@ starts occurring a lot more than usual.
  BytesIO is a neat little tool that lets you store information directly on memory instead of disk. This can help save disk space and let you access the info easily and quickly.
  Tight_layout is a matplotlib function that improves readability by ensuring that all elements are displayed correctly and adjusting space as needed.
 
+A8 Notes:
+Cross Site Request Forgery (CSRF) takes advantage of the trust sites have for logged-in users. Malicious users may take advantage of this by sending a request to another site you have open. This can be scary as this request is completely
+invisible to the user and doesn't require any user input. By using a cross site request forgery token, we are able to protect against this by using a secret token. If a malicious user tries to send a bad request, they won't have the
+token and their request won't go through.
+
+The form submission process of django is pretty simple. A user visits a page and gets served a form. The forms of that field are defined in forms.py and include some basic data cleaning processes. Once the user clicks submit, the data
+goes back to the views where it is processed by some logic, allowing the programmer to determine what happens if data is invalid. If it is valid, it is saved to the database and the programmer can once again choose what to do (show
+a success message, redirect, etc). This is similar to the MVT process but forms.py is also involved.
+
+Function based views and class based views also have a role in forms. They both have a purpose. Function based views are more difficult to make and take more code but allow for more flexibility. Class based views are super easy and
+quick to make due to essentially plugging a few variables into a premade template. The con is if you need some advanced functionality that isn't built in, it may be more difficult.
+
+Get and post are different ways of sending data to the server. Get essentially encodes the data in the URL, allowing it to be bookmarked and being lightweight, but comes at the cost of privacy and security. Post is a secure way of sending
+data to the server.

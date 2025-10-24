@@ -14,4 +14,11 @@ I have also refactored links to be dynamic and made some small visual changes.
 In A6, I added aggregations. Since I already created a search bar last week, it still remains. The aggregation shows the total logs and the number of unique log types contained within.
 
 A7: I migrated my static CSS to Tailwind. This will make further development a lot easier and help streamline my code. For my charts, I used both matplotlib and chart.js.
-Matplotlib is great for developing charts, but this experience really goes to show its limitations. Just loading the charts, there is a noticable delay before the matplotlib is generated compared to js.
+Matplotlib is great for developing charts, but this experience really goes to show its limitations. Just loading the charts, there is a noticeable delay before the matplotlib is generated compared to js. 
+
+A8: Get and Post are both very useful tools in web app development. Get is a convenient way to get data from the user in a way that is easy to replicate (and bookmark) but it has shortcomings when 
+data security is involved. Post solves this issue, allowing you to securely send data to the server, making it good for sensitive data. I use Get in my project to search my logs. Post is used to add new
+information to the DB, such as adding new servers and services.
+
+Function based views and class based views both do similar things when handling forms. Function based views are more work and can be slightly more convenient for complex tasks, while class based views
+are premade and only require a few variables being defined to work. This makes them very easy and quick to make.
