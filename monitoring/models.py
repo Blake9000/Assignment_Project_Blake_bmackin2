@@ -25,8 +25,8 @@ class Service(models.Model):
         ("DOWN", 'Down'),
         ("UNKNOWN", 'Unknown'),
     )
-    server = models.ForeignKey(Server, on_delete=models.CASCADE, related_name='services')
-    type = models.ForeignKey(ServiceType, on_delete=models.CASCADE, related_name='services')
+    server = models.ForeignKey(Server, on_delete=models.PROTECT, related_name='services')
+    type = models.ForeignKey(ServiceType, on_delete=models.PROTECT, related_name='services')
     name = models.CharField(max_length=128)
     hostname = models.CharField(max_length=255)
     port = models.PositiveIntegerField()

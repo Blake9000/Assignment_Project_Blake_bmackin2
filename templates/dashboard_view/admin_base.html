@@ -35,6 +35,14 @@
     document.addEventListener('htmx:afterRequest', (e) => {
         if (e.detail.xhr.getResponseHeader('HX-Trigger') === 'created') closeModal();
     });
+  function getCookie(name) {
+    const m = document.cookie.match('(^|;)\\s*' + name + '\\s*=\\s*([^;]+)');
+    return m ? m.pop() : '';
+  }
+  document.body.addEventListener('htmx:configRequest', (e) => {
+    e.detail.headers['X-CSRFToken'] = getCookie('csrftoken');
+  });
+
 </script>
 
 <style>
