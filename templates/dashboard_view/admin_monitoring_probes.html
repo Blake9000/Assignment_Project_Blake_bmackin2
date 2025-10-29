@@ -36,6 +36,15 @@
           <td class="px-4 py-3">{{ p.timeout_seconds }}</td>
           <td class="px-4 py-3">{{ p.enabled }}</td>
           <td class="px-4 py-3">{{ p.created_at }}</td>
+                    <td class="px-4 py-3">
+              <div class="flex justify-end ">
+                <a
+                  href="#"
+                  class="text-[#ff0000] text-lg px-2 py-0.5 leading-tight"
+                >×</a>
+              </div>
+            </td>
+
         </tr>
         {% empty %}
         <tr>

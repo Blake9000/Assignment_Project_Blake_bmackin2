@@ -8,12 +8,11 @@
     <a hx-get="{% url 'service-types-add' %}"
    hx-target="#modal-body"
    hx-swap="innerHTML"
-   class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+   class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500 hover:cursor-pointer">
   + Add
 </a>
 
   </div>
-
   <div class="overflow-x-auto rounded-lg border border-white/10 bg-slate-900">
     <table class="min-w-full text-left text-sm">
       <thead class="border-b border-white/10 bg-slate-900/70 text-slate-300">
@@ -27,6 +26,14 @@
         <tr class="hover:bg-slate-800/60">
           <td class="px-4 py-3">{{ st.name }}</td>
           <td class="px-4 py-3">{{ st.description }}</td>
+            <td class="px-4 py-3">
+              <div class="flex justify-end ">
+                <a
+                  href="#"
+                  class="text-[#ff0000] text-lg px-2 py-0.5 leading-tight"
+                >×</a>
+              </div>
+            </td>
         </tr>
         {% empty %}
         <tr>
