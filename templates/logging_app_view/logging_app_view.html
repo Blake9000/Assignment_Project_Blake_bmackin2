@@ -64,12 +64,14 @@
     </ul>
     <div class="w-full flex gap-4 ">
         {% if log_events %}
+<!--
             <div class="w-10">
                 <img src="{% url 'errors-pie' %}?q={{ q|default:'' }}"
                      alt="Pie Chart Showing Log Event Frequency" class="block mx-auto"
                 />
             </div>
-            <div class="col-span-1">
+-->
+            <div class="flex justify-center w-full">
                 <canvas id="piChart" >
                 </canvas>
             </div>
