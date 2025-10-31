@@ -22,3 +22,7 @@ information to the DB, such as adding new servers and services.
 
 Function based views and class based views both do similar things when handling forms. Function based views are more work and can be slightly more convenient for complex tasks, while class based views
 are premade and only require a few variables being defined to work. This makes them very easy and quick to make.
+
+A9: 
+Added API endpoint to allow export of data. Can be filtered to get json response with specific tables. This allows you to specify exactly what tables you want and can be used in the future for charts. Currently,
+my chart shows an overall summary of all the data stored.

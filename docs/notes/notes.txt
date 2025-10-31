@@ -110,3 +110,13 @@ quick to make due to essentially plugging a few variables into a premade templat
 
 Get and post are different ways of sending data to the server. Get essentially encodes the data in the URL, allowing it to be bookmarked and being lightweight, but comes at the cost of privacy and security. Post is a secure way of sending
 data to the server.
+
+A9 Notes:
+A JSON api is an endpoint which allows users or internal applications to access clean json data. This allows the programmer to create charts quickly or outside users to access the data from the API in a normal format that can be uses for a variety
+of purposes.
+
+HttpResponse and JsonResponse are both pretty similar. JsonResponse returns a formatted JSON response to any request. This is a formatted data type that allows people who access it to use it for further programming or charts. HTTPresponse is a manual
+way of sending a response where the programmer decides the format. It can vary from HTML, text files, image files, etc. This is flexible and allows the programmer to use it to approach any problem.
+
+The data flows from the url, which directs traffic to the view. This allows you to access it from other views or even from outside the applicaton. In our chart, we access this api within the application to get data. This data is formatted with
+matplotlib, and then inserted into a template which is served to the user accessing the site.

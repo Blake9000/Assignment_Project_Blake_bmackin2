@@ -1,7 +1,7 @@
 from django.urls import path, include
 from dashboard_view import views
 from dashboard_view.views import dashboard_login_view, AdminServers, AdminLogSource, AdminMonitoringProbes, \
-    AdminServiceTypes, AdminService, server_add, monitoring_probe_add
+    AdminServiceTypes, AdminService, server_add, monitoring_probe_add, DashboardAPI, overviewChart
 from dashboard_view.views import AdminView, generic_delete
 
 urlpatterns = [
@@ -29,5 +29,9 @@ urlpatterns = [
     path('admin/log_sources/add', views.log_source_add, name='log-sources-add'),
 
     path("delete/<str:app>/<str:model>/<int:pk>/",generic_delete, name="generic-delete"),
+
+    path("api/",DashboardAPI.as_view(), name="api"),
+
+    path('api/chart/',overviewChart, name='api-chart'),
 
 ]

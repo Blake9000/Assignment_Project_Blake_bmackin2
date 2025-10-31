@@ -1,2 +1,8 @@
 {% extends "dashboard_view/admin_base.html" %}
-Hello
+{% block main_content %}
+<div class="flex justify-center content-center w-full h-fit">
+  <div class="w-[600px]">
+    <img src="{% url 'api-chart' %}" alt="Overview of Dashboard" class="block w-full h-auto" />
+  </div>
+</div>
+{% endblock %}
