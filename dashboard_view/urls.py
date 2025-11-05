@@ -34,4 +34,6 @@ urlpatterns = [
 
     path('api/chart/',overviewChart, name='api-chart'),
 
+    path('weather/', views.weather, name='api-weather'),
+
 ]

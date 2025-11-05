@@ -4,6 +4,7 @@ import urllib
 from urllib import request
 
 import matplotlib
+import requests
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.template import loader
@@ -175,3 +176,18 @@ def overviewChart(request):
     plt.close(fig)
     buf.seek(0)
     return HttpResponse(buf, content_type="image/png")
+
+
+def weather(request):
+    if request.method == "POST":
+        params =request.POST.get("latitude")+","+request.POST.get("longitude")
+        url = "https://api.weather.gov/points/" + params
+        output_raw = False
+        try:
+            output_raw_info = requests.get(url)
+            output_raw = requests.get(output_raw_info.json()['properties']['forecastHourly'])
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"ok":False, "error":str(e)})
+        if output_raw:
+            return JsonResponse({'ok':True,'data': output_raw.json()})
+    return render(request, 'dashboard_view/weather.html')

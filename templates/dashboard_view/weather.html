@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block main_content %}
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script>
+    const options = {
+        enableHighAccuracy: true,
+        timeout: 5000,
+        maximumAge: 2000
+    };
+
+    let cords
+
+    function success(pos) {
+        cords = pos.coords;
+        $.ajax({
+            url: "{% url 'api-weather' %}",
+            method: "POST",
+            data:{
+                latitude: cords.latitude,
+                longitude: cords.longitude,
+                csrfmiddlewaretoken:'{{ csrf_token }}'
+            },
+            success: function(response){
+                responseJson(response)
+            }
+        })
+    }
+
+    function responseJson(response){
+        document.getElementById('container_div').classList.remove("hidden")
+        text = document.getElementById("location")
+        text.textContent += cords.latitude + ", "+cords.longitude
+
+        response.data.properties.periods.forEach(element => {
+            console.log(element)
+            const item = document.createElement("li")
+            item.classList.add("flex", "items-center", "justify-center", "font-semibold", "py-3")
+            item.textContent = `Time: ${element.startTime} Temperature: ${element.temperature}${element.temperatureUnit} Wind Speed: ${element.windSpeed}`
+            container.appendChild(item)
+        });
+
+    }
+
+
+    function error(err){
+        let message = document.getElementById('message')
+        message.textContent += `ERROR(${err.code}):${err.message}`
+        document.getElementById('box').classList.remove("hidden")
+
+    }
+
+    navigator.geolocation.getCurrentPosition(success,error,options)
+</script>
+
+<div>
+    <div class="flex justify-center hidden" id="box">
+         <strong id="message"> Unable to find location --- </strong>
+    </div>
+</div>
+<div class="hidden" id="container_div">
+    <h1 id="location" class="flex justify-center">Weather for </h1>
+    <ul id="container">
+
+    </ul>
+</div>
+
+
+{% endblock %}
