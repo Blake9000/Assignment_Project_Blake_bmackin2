@@ -185,7 +185,9 @@ def weather(request):
         output_raw = False
         try:
             output_raw_info = requests.get(url)
+            output_raw_info.raise_for_status()
             output_raw = requests.get(output_raw_info.json()['properties']['forecastHourly'])
+            output_raw.raise_for_status()
         except requests.exceptions.RequestException as e:
             return JsonResponse({"ok":False, "error":str(e)})
         if output_raw:

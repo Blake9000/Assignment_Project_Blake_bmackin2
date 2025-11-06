@@ -120,3 +120,14 @@ way of sending a response where the programmer decides the format. It can vary f
 
 The data flows from the url, which directs traffic to the view. This allows you to access it from other views or even from outside the applicaton. In our chart, we access this api within the application to get data. This data is formatted with
 matplotlib, and then inserted into a template which is served to the user accessing the site.
+
+A10 Notes:
+While I will likely access APIs in my project, they will be private, so for this project, I used the US government weather api. This will allow me to practice using an API even if I don't implement it in my project.
+
+For what fields I accessed, I access a couple. The first call get a response that directs me to another api for weather based on my location. For this, I access the link to the hourly forcast. Then, I make a call to that API and access the actual weather which I send back to my AJAX instance.
+
+I manage errors by using a try/except block that catches any HTML errors, and then I have a JS script in my template that shows the type of error that was raised.
+
+The final JSON is presented as a list, showing the weather at each hour, with the cords used at the top.
+
+One thing I noticed is this api is really slow. I didn't include a timeout for this reason. Visiting the site, you will notice that there can be a substantial delay before the forcast shows up. It also took a while to get everything wired up as it has a ton of fields.
