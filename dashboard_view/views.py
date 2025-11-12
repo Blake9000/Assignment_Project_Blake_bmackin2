@@ -5,6 +5,9 @@ from urllib import request
 
 import matplotlib
 import requests
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.template import loader
@@ -13,6 +16,7 @@ from django.views import View
 from django.views.generic import TemplateView, ListView, CreateView
 from django.apps import apps
 from matplotlib import pyplot as plt
+from django.contrib.auth import authenticate, login
 
 from monitoring.models import Service, CheckResult, Server, Probe, ServiceType
 from logging_app.models import LogSource
@@ -21,42 +25,36 @@ from .forms import ServiceTypeForm, ServerForm, MonitoringProbesForm, ServiceFor
 
 # Create your views here.
 
-def dashboard_login_view(request):
-    template = loader.get_template('dashboard_view/dashboard_view_login.html')
-    output = template.render()
-    return HttpResponse(output)
-
-
-class AdminView(TemplateView):
+class AdminView(LoginRequiredMixin,TemplateView):
     template_name = 'dashboard_view/admin_overview.html'
 
-
-class AdminServers(ListView):
+class AdminServers(LoginRequiredMixin,ListView):
     model = Server
     context_object_name = 'servers'
     template_name = 'dashboard_view/admin_servers.html'
 
-class AdminLogSource(ListView):
+class AdminLogSource(LoginRequiredMixin,ListView):
     model = LogSource
     context_object_name = 'log_sources'
     template_name = 'dashboard_view/admin_log_sources.html'
 
-class AdminMonitoringProbes(ListView):
+class AdminMonitoringProbes(LoginRequiredMixin,ListView):
     model = Probe
     context_object_name = 'monitoring_probes'
     template_name = 'dashboard_view/admin_monitoring_probes.html'
 
-class AdminServiceTypes(ListView):
+class AdminServiceTypes(LoginRequiredMixin,ListView):
     model = ServiceType
     context_object_name = 'service_types'
     template_name = 'dashboard_view/admin_service_types.html'
 
-class AdminService(ListView):
+class AdminService(LoginRequiredMixin,ListView):
     model = Service
     context_object_name = 'services'
     template_name = 'dashboard_view/admin_services.html'
 
 
+@login_required(login_url='login')
 def service_type_add(request):
     if request.method == "POST":
         form = ServiceTypeForm(request.POST)
@@ -69,6 +67,7 @@ def service_type_add(request):
         form = ServiceTypeForm()
     return render(request, 'dashboard_view/partials/_service_types_form.html', {'form': form})
 
+@login_required(login_url='login')
 def monitoring_probe_add(request):
     if request.method == "POST":
         form = MonitoringProbesForm(request.POST)
@@ -81,6 +80,7 @@ def monitoring_probe_add(request):
         form = MonitoringProbesForm()
     return render(request, 'dashboard_view/partials/_monitoring_probes_form.html', {'form': form})
 
+@login_required(login_url='login')
 def server_add(request):
     if request.method == "POST":
         form = ServerForm(request.POST)
@@ -94,6 +94,7 @@ def server_add(request):
     return render(request, 'dashboard_view/partials/_server_form.html', {'form': form})
 
 
+@login_required(login_url='login')
 def service_add(request):
     if request.method == "POST":
         form = ServiceForm(request.POST)
@@ -106,6 +107,7 @@ def service_add(request):
         form = ServiceForm()
     return render(request, 'dashboard_view/partials/_services_form.html', {'form': form})
 
+@login_required(login_url='login')
 def log_source_add(request):
     if request.method == "POST":
         form = LogSourceForm(request.POST)
@@ -118,6 +120,7 @@ def log_source_add(request):
         form = LogSourceForm()
     return render(request, 'dashboard_view/partials/_log_sources_form.html', {'form': form})
 
+@login_required(login_url='login')
 def generic_delete(request, app, model, pk):
     Model = apps.get_model(app_label=app, model_name=model)
     if Model is None:
@@ -129,7 +132,7 @@ def generic_delete(request, app, model, pk):
     return HttpResponse("", headers={"HX-Trigger": "deleted"})
 
 
-class DashboardAPI(View):
+class DashboardAPI(LoginRequiredMixin,View):
 
     def get(self, request):
         q = request.GET.getlist('q')
@@ -152,6 +155,7 @@ class DashboardAPI(View):
 
 
 
+@login_required(login_url='login')
 def overviewChart(request):
     matplotlib.use('Agg')
     api_url = request.build_absolute_uri(reverse('api'))
@@ -178,6 +182,7 @@ def overviewChart(request):
     return HttpResponse(buf, content_type="image/png")
 
 
+@login_required(login_url='login')
 def weather(request):
     if request.method == "POST":
         params =request.POST.get("latitude")+","+request.POST.get("longitude")
@@ -193,3 +198,16 @@ def weather(request):
         if output_raw:
             return JsonResponse({'ok':True,'data': output_raw.json()})
     return render(request, 'dashboard_view/weather.html')
+
+def site_login(request):
+    if request.method == "POST":
+        username = request.POST.get("username")
+        password = request.POST.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('dashboard')
+        else:
+            messages.error(request, "Invalid username or password.")
+            redirect('login')
+    return render(request,"dashboard_view/dashboard_view_login.html",)

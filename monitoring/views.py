@@ -1,14 +1,16 @@
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render
 from django.views.generic import ListView, View
 from monitoring.models import Service, CheckResult
 # Create your views here.
 
-class MonitoringViews(ListView):
+class MonitoringViews(LoginRequiredMixin,ListView):
     model = Service
     context_object_name = 'services'
     template_name = "monitoring_view/monitoring_view.html"
 
-class ServiceDetailView(View):
+class ServiceDetailView(LoginRequiredMixin,View):
 
     def get(self, request, primary_key):
         service = get_object_or_404(Service, pk=primary_key)

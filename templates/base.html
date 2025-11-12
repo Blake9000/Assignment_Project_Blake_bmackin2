@@ -29,10 +29,19 @@
                        href="{% url 'logs' %}">Logs</a></li>
                 <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
                        href="{% url 'admin' %}">Admin</a></li>
+            {% comment %}
                 <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
                        href="{% url 'api-weather' %}">Weather</a></li>
-                <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
-                       href="/login/">Logout</a></li>
+            {% endcomment %}
+                {% if user.is_authenticated %}
+                <li>
+                <form action="{% url 'logout' %}" method="post">
+                    {% csrf_token %}
+                    <button class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
+                           type="submit">Logout</button>
+                </form>
+                </li>
+                {% endif %}
             </ul>
         </div>
     </nav>

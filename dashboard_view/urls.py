@@ -1,11 +1,13 @@
+from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 from dashboard_view import views
-from dashboard_view.views import dashboard_login_view, AdminServers, AdminLogSource, AdminMonitoringProbes, \
-    AdminServiceTypes, AdminService, server_add, monitoring_probe_add, DashboardAPI, overviewChart
+from dashboard_view.views import AdminServers, AdminLogSource, AdminMonitoringProbes, \
+    AdminServiceTypes, AdminService, server_add, monitoring_probe_add, DashboardAPI, overviewChart, site_login
 from dashboard_view.views import AdminView, generic_delete
 
+
 urlpatterns = [
-    path('login/',dashboard_login_view, name='login'),
+    path('login/', views.site_login, name='login'),
     path('admin/',AdminView.as_view(), name='admin'),
 
     path('admin/servers',AdminServers.as_view(), name='admin-servers'),
@@ -35,5 +37,7 @@ urlpatterns = [
     path('api/chart/',overviewChart, name='api-chart'),
 
     path('weather/', views.weather, name='api-weather'),
+
+    path('logout/',LogoutView.as_view(next_page='login'), name='logout'),
 
 ]

@@ -7,7 +7,13 @@
     <main class="mx-auto grid min-h-[60vh] max-w-sm place-items-start pt-16">
         <div class="w-full">
             <h1 class="mb-4 text-center text-2xl font-semibold">Login</h1>
-            <form method="post" action="/login/" class="space-y-3">
+            {% for message in messages %}
+                <div class="flex justify-center text-red-400">
+                {{ message }}
+                </div>
+            {% endfor %}
+            <form method="post"  class="space-y-3">
+                {% csrf_token %}
                 <div>
                     <label for="username" class="mb-1 block text-sm text-slate-300">Username</label>
                     <input id="username" name="username" required
