@@ -5,6 +5,7 @@ from urllib import request
 
 import matplotlib
 import requests
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -158,8 +159,16 @@ class DashboardAPI(LoginRequiredMixin,View):
 @login_required(login_url='login')
 def overviewChart(request):
     matplotlib.use('Agg')
+    session_cookie = settings.SESSION_COOKIE_NAME
+    sessionid = request.COOKIES.get(session_cookie)
+    headers = {}
+    if sessionid:
+        headers['Cookie'] = f'{session_cookie}={sessionid}'
+
     api_url = request.build_absolute_uri(reverse('api'))
-    with urllib.request.urlopen(api_url) as response:
+    req = urllib.request.Request(api_url,headers=headers)
+
+    with urllib.request.urlopen(req) as response:
         payload = json.loads(response.read())
 
     rows = payload.get("data",[])
