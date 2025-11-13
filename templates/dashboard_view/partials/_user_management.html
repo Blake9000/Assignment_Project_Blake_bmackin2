@@ -1,0 +1,56 @@
+<form hx-post="{% url 'user-add' %}"
+      hx-target="#modal-body"
+      hx-swap="innerHTML"
+      class="space-y-4">
+  {% csrf_token %}
+  {{ form.non_field_errors }}
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Username</label>
+    {{ form.username }}
+  </div>
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Email</label>
+    {{ form.email }}
+  </div>
+
+  <div class="grid grid-cols-2 gap-4">
+    <div>
+      <label class="mb-1 block text-sm font-medium">First Name</label>
+      {{ form.first_name }}
+    </div>
+    <div>
+      <label class="mb-1 block text-sm font-medium">Last Name</label>
+      {{ form.last_name }}
+    </div>
+  </div>
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Password</label>
+    {{ form.password1 }}
+  </div>
+
+  <div>
+    <label class="mb-1 block text-sm font-medium">Confirm Password</label>
+    {{ form.password2 }}
+  </div>
+
+  <div class="flex items-center space-x-2 pt-2">
+    {{ form.is_superuser }}
+    <label class="text-sm font-medium">Is Superuser</label>
+  </div>
+
+  <div class="flex justify-end space-x-2 pt-2 border-t border-white/10">
+    <button type="button"
+            onclick="closeModal()"
+            class="rounded-md border border-white/10 px-3 py-2 text-sm hover:bg-slate-800">
+      Cancel
+    </button>
+
+    <button type="submit"
+            class="rounded-md bg-sky-600 px-4 py-2 text-sm font-semibold text-white hover:bg-sky-500">
+      Create
+    </button>
+  </div>
+</form>

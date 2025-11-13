@@ -2,6 +2,9 @@ from django import forms
 
 from logging_app.models import LogSource
 from monitoring.models import ServiceType, Server, Probe, Service
+from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 
 class ServiceTypeForm(forms.ModelForm):
@@ -79,3 +82,14 @@ class LogSourceForm(forms.ModelForm):
         return self.cleaned_data['path'].strip()
     def clean_parser(self):
         return self.cleaned_data['parser'].strip()
+
+class UserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = (
+            "username",
+            "email",
+            "first_name",
+            "last_name",
+            "is_superuser",
+        )

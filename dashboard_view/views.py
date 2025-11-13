@@ -20,11 +20,13 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.apps import apps
 from matplotlib import pyplot as plt
 from django.contrib.auth import authenticate, login
+from django.contrib.auth import get_user_model
+User = get_user_model()
 
 from monitoring.models import Service, CheckResult, Server, Probe, ServiceType
 from logging_app.models import LogSource
 from . import models
-from .forms import ServiceTypeForm, ServerForm, MonitoringProbesForm, ServiceForm, LogSourceForm
+from .forms import ServiceTypeForm, ServerForm, MonitoringProbesForm, ServiceForm, LogSourceForm, UserForm
 
 
 # Create your views here.
@@ -57,6 +59,10 @@ class AdminService(LoginRequiredMixin,ListView):
     context_object_name = 'services'
     template_name = 'dashboard_view/admin_services.html'
 
+class AdminUsers(LoginRequiredMixin,ListView):
+    model = User
+    context_object_name = 'users'
+    template_name = 'dashboard_view/admin_user_management.html'
 
 @login_required(login_url='login')
 def service_type_add(request):
@@ -110,6 +116,21 @@ def service_add(request):
     else:
         form = ServiceForm()
     return render(request, 'dashboard_view/partials/_services_form.html', {'form': form})
+
+@login_required(login_url='login')
+def user_add(request):
+    if request.method == "POST":
+        form = UserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponse('Success!')
+        else:
+            return HttpResponse(f'<script>alert("Invalid Entry, fix errors: {form.errors.as_text().replace('\n','')}");</script>', headers={"HX-Reswap": "afterend"})
+    else:
+        form = UserForm()
+    return render(request, 'dashboard_view/partials/_user_management.html', {'form': form})
+
+
 
 @login_required(login_url='login')
 def log_source_add(request):

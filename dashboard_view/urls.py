@@ -3,7 +3,7 @@ from django.urls import path, include
 from dashboard_view import views
 from dashboard_view.views import AdminServers, AdminLogSource, AdminMonitoringProbes, \
     AdminServiceTypes, AdminService, server_add, monitoring_probe_add, DashboardAPI, overviewChart, site_login, \
-    ReportsView, export_csv, export_json
+    ReportsView, export_csv, export_json, AdminUsers
 from dashboard_view.views import AdminView, generic_delete
 
 
@@ -46,5 +46,9 @@ urlpatterns = [
     path('export/export.csv', export_csv, name='export-csv'),
 
     path('export/export.json',export_json, name='export-json'),
+
+    path('admin/user_management/',AdminUsers.as_view(), name='user-management'),
+
+    path('admin/user_management/add',views.user_add, name='user-add'),
 
 ]
