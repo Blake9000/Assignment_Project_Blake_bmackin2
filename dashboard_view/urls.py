@@ -2,7 +2,8 @@ from django.contrib.auth.views import LogoutView
 from django.urls import path, include
 from dashboard_view import views
 from dashboard_view.views import AdminServers, AdminLogSource, AdminMonitoringProbes, \
-    AdminServiceTypes, AdminService, server_add, monitoring_probe_add, DashboardAPI, overviewChart, site_login
+    AdminServiceTypes, AdminService, server_add, monitoring_probe_add, DashboardAPI, overviewChart, site_login, \
+    ReportsView, export_csv, export_json
 from dashboard_view.views import AdminView, generic_delete
 
 
@@ -39,5 +40,11 @@ urlpatterns = [
     path('weather/', views.weather, name='api-weather'),
 
     path('logout/',LogoutView.as_view(next_page='login'), name='logout'),
+
+    path("reports/", ReportsView.as_view(), name="reports"),
+
+    path('export/export.csv', export_csv, name='export-csv'),
+
+    path('export/export.json',export_json, name='export-json'),
 
 ]

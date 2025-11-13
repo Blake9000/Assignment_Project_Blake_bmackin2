@@ -1,0 +1,63 @@
+{% extends "dashboard_view/admin_base.html" %}
+{% block title %} Reports {% endblock %}
+{% block main_content %}
+
+<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+  <div class="mb-6">
+    <div class="flex justify-center">
+      <h1 class="text-2xl font-semibold text-gray-900">
+        Reports
+      </h1>
+    </div>
+  </div>
+
+  <div class="overflow-hidden rounded-xl border border-gray-200 bg-white shadow-sm">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col"
+              class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
+            Object
+          </th>
+          <th scope="col"
+              class="px-4 py-3 text-left text-xs font-semibold uppercase tracking-wide text-gray-600">
+            Model
+          </th>
+          <th scope="col"
+              class="px-4 py-3 text-right text-xs font-semibold uppercase tracking-wide text-gray-600">
+            Count
+          </th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-200 bg-white">
+        {% for row in summary_rows %}
+        <tr class="hover:bg-gray-50">
+          <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-900">
+            {{ row.label }}
+          </td>
+          <td class="whitespace-nowrap px-4 py-3 text-sm text-gray-500">
+            <span class="inline-flex items-center rounded-full bg-gray-100 px-2 py-0.5 text-xs font-medium text-gray-700">
+              {{ row.model_name }}
+            </span>
+          </td>
+          <td class="whitespace-nowrap px-4 py-3 text-right text-sm font-semibold text-gray-900">
+            {{ row.count }}
+          </td>
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="3" class="px-4 py-6 text-center text-sm text-gray-500">
+            No data found in the database.
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="py-4">
+    <a class="rounded-lg border border-white/10 bg-slate-800 px-4 py-2 hover:bg-slate-700" href="{% url 'export-csv' %}">Export Data (CSV)</a>
+    <a class="rounded-lg border border-white/10 bg-slate-800 px-4 py-2 hover:bg-slate-700 " href="{% url 'export-json' %}">Export Data (JSON)</a>
+  </div>
+</div>
+
+{% endblock %}

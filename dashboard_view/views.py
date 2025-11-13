@@ -1,6 +1,8 @@
+import csv
 import io
 import json
 import urllib
+from datetime import datetime
 from urllib import request
 
 import matplotlib
@@ -21,6 +23,7 @@ from django.contrib.auth import authenticate, login
 
 from monitoring.models import Service, CheckResult, Server, Probe, ServiceType
 from logging_app.models import LogSource
+from . import models
 from .forms import ServiceTypeForm, ServerForm, MonitoringProbesForm, ServiceForm, LogSourceForm
 
 
@@ -220,3 +223,100 @@ def site_login(request):
             messages.error(request, "Invalid username or password.")
             redirect('login')
     return render(request,"dashboard_view/dashboard_view_login.html",)
+
+class ReportsView(LoginRequiredMixin, View):
+    template_name = "dashboard_view/admin_reports.html"
+
+    def get(self, request):
+        summary_rows = [
+            {
+                "label": "Services",
+                "model_name": "Service",
+                "count": Service.objects.count(),
+            },
+            {
+                "label": "Servers",
+                "model_name": "Server",
+                "count": Server.objects.count(),
+            },
+            {
+                "label": "Probes",
+                "model_name": "Probe",
+                "count": Probe.objects.count(),
+            },
+            {
+                "label": "Service Types",
+                "model_name": "ServiceType",
+                "count": ServiceType.objects.count(),
+            },
+            {
+                "label": "Log Sources",
+                "model_name": "LogSource",
+                "count": LogSource.objects.count(),
+            },
+        ]
+
+        ctx = {
+            "summary_rows": summary_rows,
+        }
+        return render(request, self.template_name, ctx)
+
+@login_required(login_url='login')
+def export_csv(request):
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f'export-{timestamp}.csv'
+
+    response = HttpResponse(content_type='text/csv')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+
+    writer = csv.writer(response)
+
+    models = [Service, Server, Probe, ServiceType, LogSource]
+
+    all_field_names = set()
+    model_fields = {}
+
+    for model in models:
+        fields = [f.name for f in model._meta.fields]
+        model_fields[model] = fields
+        all_field_names.update(fields)
+
+    all_field_names = sorted(all_field_names)
+
+    writer.writerow(["model"] + all_field_names)
+
+    for model in models:
+        model_name = model._meta.model_name
+        fields_for_model = model_fields[model]
+
+        for val in model.objects.all().values(*fields_for_model):
+            row = [model_name]
+            for field in all_field_names:
+                row.append(val.get(field, ""))
+            writer.writerow(row)
+
+    return response
+
+@login_required(login_url='login')
+def export_json(request):
+    timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+    filename = f'export-{timestamp}.json'
+
+    response = HttpResponse(content_type='application/json')
+    response['Content-Disposition'] = f'attachment; filename="{filename}"'
+    models = [Service, Server, Probe, ServiceType, LogSource]
+
+    export_rows = []
+
+    for model in models:
+        model_name = model._meta.model_name
+        fields = [f.name for f in model._meta.fields]
+
+        for obj in model.objects.all().values(*fields):
+            row = {"model": model_name}
+            row.update(obj)
+            export_rows.append(row)
+
+    payload = json.dumps(export_rows, default=str, indent=2)
+    response.write(payload)
+    return response
