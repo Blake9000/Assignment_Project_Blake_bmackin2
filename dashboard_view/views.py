@@ -10,7 +10,7 @@ import requests
 from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import redirect, render
 from django.template import loader
@@ -31,41 +31,61 @@ from .forms import ServiceTypeForm, ServerForm, MonitoringProbesForm, ServiceFor
 
 # Create your views here.
 
-class AdminView(LoginRequiredMixin,TemplateView):
+class AdminView(LoginRequiredMixin,UserPassesTestMixin, TemplateView):
     template_name = 'dashboard_view/admin_overview.html'
 
-class AdminServers(LoginRequiredMixin,ListView):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+class AdminServers(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = Server
     context_object_name = 'servers'
     template_name = 'dashboard_view/admin_servers.html'
 
-class AdminLogSource(LoginRequiredMixin,ListView):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+
+class AdminLogSource(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = LogSource
     context_object_name = 'log_sources'
     template_name = 'dashboard_view/admin_log_sources.html'
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class AdminMonitoringProbes(LoginRequiredMixin,ListView):
+class AdminMonitoringProbes(LoginRequiredMixin,UserPassesTestMixin, ListView):
     model = Probe
     context_object_name = 'monitoring_probes'
     template_name = 'dashboard_view/admin_monitoring_probes.html'
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class AdminServiceTypes(LoginRequiredMixin,ListView):
+class AdminServiceTypes(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = ServiceType
     context_object_name = 'service_types'
     template_name = 'dashboard_view/admin_service_types.html'
+    def test_func(self):
+        return self.request.user.is_superuser
 
-class AdminService(LoginRequiredMixin,ListView):
+class AdminService(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = Service
     context_object_name = 'services'
     template_name = 'dashboard_view/admin_services.html'
 
-class AdminUsers(LoginRequiredMixin,ListView):
+    def test_func(self):
+        return self.request.user.is_superuser
+
+class AdminUsers(LoginRequiredMixin,UserPassesTestMixin,ListView):
     model = User
     context_object_name = 'users'
     template_name = 'dashboard_view/admin_user_management.html'
+    def test_func(self):
+        return self.request.user.is_superuser
 
 @login_required(login_url='login')
 def service_type_add(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         form = ServiceTypeForm(request.POST)
         if form.is_valid():
@@ -79,6 +99,8 @@ def service_type_add(request):
 
 @login_required(login_url='login')
 def monitoring_probe_add(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         form = MonitoringProbesForm(request.POST)
         if form.is_valid():
@@ -92,6 +114,8 @@ def monitoring_probe_add(request):
 
 @login_required(login_url='login')
 def server_add(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         form = ServerForm(request.POST)
         if form.is_valid():
@@ -106,6 +130,8 @@ def server_add(request):
 
 @login_required(login_url='login')
 def service_add(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         form = ServiceForm(request.POST)
         if form.is_valid():
@@ -119,6 +145,8 @@ def service_add(request):
 
 @login_required(login_url='login')
 def user_add(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         form = UserForm(request.POST)
         if form.is_valid():
@@ -134,6 +162,8 @@ def user_add(request):
 
 @login_required(login_url='login')
 def log_source_add(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     if request.method == "POST":
         form = LogSourceForm(request.POST)
         if form.is_valid():
@@ -147,6 +177,8 @@ def log_source_add(request):
 
 @login_required(login_url='login')
 def generic_delete(request, app, model, pk):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     Model = apps.get_model(app_label=app, model_name=model)
     if Model is None:
         return HttpResponse(status=404)
@@ -245,8 +277,11 @@ def site_login(request):
             redirect('login')
     return render(request,"dashboard_view/dashboard_view_login.html",)
 
-class ReportsView(LoginRequiredMixin, View):
+class ReportsView(LoginRequiredMixin,UserPassesTestMixin, View):
     template_name = "dashboard_view/admin_reports.html"
+
+    def test_func(self):
+        return self.request.user.is_superuser
 
     def get(self, request):
         summary_rows = [
@@ -284,6 +319,8 @@ class ReportsView(LoginRequiredMixin, View):
 
 @login_required(login_url='login')
 def export_csv(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     filename = f'export-{timestamp}.csv'
 
@@ -320,6 +357,8 @@ def export_csv(request):
 
 @login_required(login_url='login')
 def export_json(request):
+    if not request.user.is_superuser:
+        return redirect('dashboard')
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
     filename = f'export-{timestamp}.json'
 

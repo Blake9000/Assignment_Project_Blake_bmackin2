@@ -27,8 +27,10 @@
                        href="{% url 'dashboard' %}">Dashboard</a></li>
                 <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
                        href="{% url 'logs' %}">Logs</a></li>
+                {% if user.is_superuser %}
                 <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
                        href="{% url 'admin' %}">Admin</a></li>
+                {% endif %}
             {% comment %}
                 <li><a class="inline-flex items-center rounded-md border border-white/10 px-3 py-1.5 hover:bg-slate-800"
                        href="{% url 'api-weather' %}">Weather</a></li>
