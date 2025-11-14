@@ -26,3 +26,14 @@ are premade and only require a few variables being defined to work. This makes t
 A9: 
 Added API endpoint to allow export of data. Can be filtered to get json response with specific tables. This allows you to specify exactly what tables you want and can be used in the future for charts. Currently,
 my chart shows an overall summary of all the data stored.
+
+A11:
+My new export feature allows you to export the entire database to, in the future, allow for quick and easy migrations. This acts as a "save" feature as well, allowing you to recreate the settings in case of disaster.
+The URL for the reports page is simply "reports/" and the export json and csv is found in: export/export.csv and export/export.json
+
+A12:
+All routes are protected in my project except for the login page. Trying to access any page while unauthenticated will send you to the login page. This is because the site will contain sensitive configuration information and 
+information about the internal systems which should not be able to be seen by anyone but admins. As such, all my API endpoints also require authentication. By default, logging out will send you to the login page and loggin in will
+send you to the dashboard.
+
+Signup is not done publicly. It is done though the admin page of the site under user management. As an admin, you can create new users and specify if they are superusers or not. It also allows you to see information about user accounts.

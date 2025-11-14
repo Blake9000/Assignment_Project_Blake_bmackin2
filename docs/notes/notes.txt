@@ -131,3 +131,9 @@ I manage errors by using a try/except block that catches any HTML errors, and th
 The final JSON is presented as a list, showing the weather at each hour, with the cords used at the top.
 
 One thing I noticed is this api is really slow. I didn't include a timeout for this reason. Visiting the site, you will notice that there can be a substantial delay before the forcast shows up. It also took a while to get everything wired up as it has a ton of fields.
+
+A11:
+Generating the CSV took some more effort, as I wanted this to act as an export function for the database, I needed multiple tables in one CSV. This wasn't easy. What I decided to do was make a large table with all attributes, and only fill them in if the item has an attribute. After this, I send it as a response with a csv content type.
+JSON was a lot easier. Since the data can be transformed pretty much as is, I just export each item and then combine them into one file. This is then sent as a json response.
+What I include is everything in the Service, Server, Probe, ServiceType, LogSource tables. This will let me later import this data, allowing people to transfer setups easily. The summary itself just tells you how many entries each table has.
+
