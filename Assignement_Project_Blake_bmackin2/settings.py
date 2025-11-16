@@ -41,7 +41,8 @@ INSTALLED_APPS = [
     'dashboard_view',
     'monitoring',
     'tailwind',
-    'theme'
+    'theme',
+    'django_apscheduler'
 ]
 
 TAILWIND_APP_NAME = "theme"

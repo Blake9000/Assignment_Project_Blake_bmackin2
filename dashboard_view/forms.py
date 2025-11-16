@@ -48,8 +48,6 @@ class MonitoringProbesForm(forms.ModelForm):
         return self.cleaned_data['target'].strip()
     def clean_interval_seconds(self):
         return self.cleaned_data['interval_seconds']
-    def clean_timeout_seconds(self):
-        return self.cleaned_data['timeout_seconds']
     def clean_enabled(self):
         return self.cleaned_data['enabled']
 
@@ -63,8 +61,6 @@ class ServiceForm(forms.ModelForm):
         return self.cleaned_data['type']
     def clean_name(self):
         return self.cleaned_data['name'].strip()
-    def clean_hostname(self):
-        return self.cleaned_data['hostname'].strip()
     def clean_port(self):
         return self.cleaned_data['port']
     def clean_config(self):
