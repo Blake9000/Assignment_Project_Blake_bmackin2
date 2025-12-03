@@ -1,6 +1,8 @@
 <form hx-post="{% url 'log-sources-add' %}"
       hx-target="#modal-body"
       hx-swap="innerHTML"
+      enctype="multipart/form-data"
+      hx-encoding="multipart/form-data"
       class="space-y-4">
   {% csrf_token %}
   {{ form.non_field_errors }}

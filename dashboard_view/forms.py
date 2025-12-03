@@ -78,8 +78,6 @@ class LogSourceForm(forms.ModelForm):
         return self.cleaned_data['path'].strip()
     def clean_parser(self):
         return self.cleaned_data['parser'].strip()
-    def clean_ssh_key(self):
-        return self.cleaned_data['ssh_key'].strip()
 
 class UserForm(UserCreationForm):
     class Meta:

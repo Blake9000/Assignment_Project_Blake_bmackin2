@@ -165,7 +165,7 @@ def log_source_add(request):
     if not request.user.is_superuser:
         return redirect('dashboard')
     if request.method == "POST":
-        form = LogSourceForm(request.POST)
+        form = LogSourceForm(request.POST,request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponse('Success!')

@@ -18,7 +18,6 @@ class LoginAudit(models.Model):
     ip_address = models.GenericIPAddressField()
     user_agent = models.TextField(blank=True)
     success = models.BooleanField(default=False)
-    created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.username_attempted}: {self.ip_address}"

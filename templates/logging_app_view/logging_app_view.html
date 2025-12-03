@@ -36,9 +36,10 @@
     </div>
 
     <div class="flex mb-2 rounded-xl border border-white/10 bg-slate-900/80 px-4 py-2 text-xs font-semibold uppercase text-slate-300 gap-4">
-        <span class="w-42">Timestamp</span>
-        <span class="w-34">Host</span>
-        <span class="w-34">Level</span>
+        <span class="w-24">Timestamp</span>
+        <span class="w-24">Host</span>
+        <span class="w-16">Level</span>
+        <span class="w-34">Source</span>
         <span class="w-34">Message</span>
     </div>
 
@@ -47,11 +48,12 @@
             <li class="block rounded-xl border border-white/10 bg-slate-900/80 px-4 py-3 hover:bg-slate-800">
                 <a href="{% url 'logs-detail' log.pk %}" class="">
                     <div class="flex gap-6 items-start text-sm">
-                        <span class="w-40 truncate text-slate-300">{{ log.timestamp }}</span>
+                        <span class="w-40 text-slate-300">{{ log.timestamp }}</span>
                         <span class="w-32 truncate text-slate-200">{{ log.source.service_id.server.hostname }}</span>
                         <span class="w-32 font-medium {% if log.level == 'CRITICAL' %} text-red-400 {% elif log.level == 'ERROR' %} text-orange-400 {% else %} text-slate-200 {% endif %}">
             {{ log.level }}
           </span>
+                        <span class="w-40 truncate text-slate-300">{{ log.err_src }}</span>
                         <span class="flex-auto truncate text-slate-100">{{ log.message }}</span>
                     </div>
                 </a>
@@ -62,6 +64,26 @@
             </li>
         {% endfor %}
     </ul>
+
+    <div class="flex">
+    <span class="flex justify-center w-full">
+        {% if page_obj.has_previous %}
+            <a href="?page=1">&laquo; first &nbsp;</a>
+            <a href="?page={{ page_obj.previous_page_number }}">previous&nbsp;</a>
+        {% endif %}
+
+        <span class="font-bold">
+            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}&nbsp;
+        </span>
+
+        {% if page_obj.has_next %}
+            <a href="?page={{ page_obj.next_page_number }}">next&nbsp;</a>
+            <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+        {% endif %}
+    </span>
+</div>
+
+
     <div class="w-full flex gap-4 ">
         {% if log_events %}
 <!--

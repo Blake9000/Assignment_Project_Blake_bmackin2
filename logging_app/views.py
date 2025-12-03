@@ -11,32 +11,40 @@ import matplotlib.pyplot as plt
 from django.http import HttpResponse
 
 class LogEventsView(LoginRequiredMixin,ListView):
+    paginate_by = 20
     model = LogEvent
     context_object_name = 'log_events'
     template_name = "logging_app_view/logging_app_view.html"
+    def get_queryset(self):
+        q = self.request.GET.get('q')
+        qs = LogEvent.objects.all()
 
+        if q:
+            qs = qs.filter(
+                Q(message__icontains=q)
+                | Q(level__icontains=q)
+                | Q(source__service_id__server__hostname__icontains=q)
+                | Q(timestamp__icontains=q)
+                | Q(err_src__icontains=q)
+            )
 
+        return qs.order_by('-timestamp')
 
     def get_context_data(self, **kwargs):
         ctx = super().get_context_data(**kwargs)
+
+        base_qs = self.get_queryset()  # full filtered queryset, not paginated
         q = self.request.GET.get('q')
-        if q:
-            search_qs = LogEvent.objects.filter(Q(message__icontains=q) | Q(level__icontains=q)|Q(source__service_id__server__hostname__icontains=q)|Q(timestamp__icontains=q))
-        else:
-            search_qs = LogEvent.objects.all()
-        ctx['log_events'] = search_qs
+
         ctx['q'] = q
-        ctx['total_logs'] = search_qs.count()
+        ctx['total_logs'] = base_qs.count()
         ctx['total_unique'] = (
-            search_qs.values('level').
-            annotate(total=Count('level')).
-            order_by('-total')
+            base_qs.values('level')
+            .annotate(total=Count('level'))
+            .order_by('-total')
         )
-        ctx['sizes'] = []
-        ctx['labels'] = []
-        for eventCt in ctx['total_unique']:
-            ctx['sizes'].append(eventCt['total'])
-            ctx['labels'].append(eventCt['level'])
+        ctx['sizes'] = [row['total'] for row in ctx['total_unique']]
+        ctx['labels'] = [row['level'] for row in ctx['total_unique']]
 
         return ctx
 

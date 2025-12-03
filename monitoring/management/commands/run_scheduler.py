@@ -1,5 +1,6 @@
 from django.core.management.base import BaseCommand
 from monitoring.scheduler import scheduler
+from logging_app.scheduler import scheduler as log_scheduler
 
 class Command(BaseCommand):
     help = "Run APScheduler"
