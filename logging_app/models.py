@@ -7,6 +7,7 @@ class LogSource(models.Model):
     service_id = models.ForeignKey(Service, on_delete=models.CASCADE, related_name='logs')
     source_type = models.CharField(max_length=16)
     path = models.TextField() # Where the log comes from
+    ssh_key = models.TextField(null=True)
     parser = models.CharField(max_length=128, blank=True) # For future processing, what format is the log in?
     created_at = models.DateTimeField(auto_now_add=True)
 

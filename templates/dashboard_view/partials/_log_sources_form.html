@@ -1,4 +1,4 @@
-<form hx-post="{% url 'user-add' %}"
+<form hx-post="{% url 'log-sources-add' %}"
       hx-target="#modal-body"
       hx-swap="innerHTML"
       class="space-y-4">
@@ -17,6 +17,11 @@
     <label class="mb-1 block text-sm font-medium">Path to Logs</label>
     {{ form.path }}
   </div>
+      <div>
+    <label class="mb-1 block text-sm font-medium">SSH Key</label>
+    {{ form.ssh_key }}
+  </div>
+
     <div>
     <label class="mb-1 block text-sm font-medium">Parser</label>
     {{ form.parser }}

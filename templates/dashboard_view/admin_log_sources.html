@@ -21,6 +21,7 @@
           <th class="px-4 py-3">Type</th>
           <th class="px-4 py-3">Path</th>
           <th class="px-4 py-3">Parser</th>
+          <th class="px-4 py-3">Has SSH Key</th>
           <th class="px-4 py-3">Created</th>
         </tr>
       </thead>
@@ -31,6 +32,7 @@
           <td class="px-4 py-3">{{ l.source_type }}</td>
           <td class="px-4 py-3">{{ l.path }}</td>
           <td class="px-4 py-3">{{ l.parser }}</td>
+          <td class='px-4 py-3'>{% if l.ssh_key %} YES {% else %} NO {% endif %}</td>
           <td class="px-4 py-3">{{ l.created_at }}</td>
             <td class="px-4 py-3">
               <div class="flex justify-end ">
